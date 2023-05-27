@@ -1,10 +1,10 @@
 """Package init module."""
 
-from .commands import add, ls
+from .commands import add, list_people
 from .__main__ import people
 from .models import People
 
 People.create_table()
-commands = [add, ls]
+commands = [add, list_people]
 for command in commands:
     people.add_command(command)

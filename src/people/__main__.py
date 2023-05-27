@@ -16,7 +16,8 @@ def people(ctx: click.Context, **options):
 
 
 def main():
-    people()
+    """Package entrypoint function."""
+    people()  # pylint: disable=E1120
 
 
 if __name__ == "__main__":
