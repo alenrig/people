@@ -17,6 +17,17 @@ def add(name: str) -> None:
     """Add new person in contacts.
 
     Args:
-        name (str): first name of a person
+        name (str): person first name
     """
     People.create(name=name)
+
+
+@click.command
+@click.argument("name")
+def remove(name: str):
+    """Remove person from contacts.
+
+    Args:
+        name (str): person first name
+    """
+    People.get(People.name == name).delete_instance()
