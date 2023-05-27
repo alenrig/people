@@ -6,7 +6,7 @@ from .models import People
 
 @click.command(name="ls")
 def list_people() -> None:
-    """List all people in contacts."""
+    """List contacts."""
     for man in People.select():
         print(man.name)
 
