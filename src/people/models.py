@@ -22,4 +22,5 @@ class People(BaseModel):
         BaseModel: parent class with meta definition.
     """
 
-    name = CharField()
+    first_name = CharField()
+    last_name = CharField()
