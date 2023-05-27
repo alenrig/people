@@ -13,7 +13,7 @@ lint:
   - pip3 install -r requirements-dev.lock
   script:
   - black src
-  - flake8 src
+  - pflake8 src
   - mypy src
 
 sast:
