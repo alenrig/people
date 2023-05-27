@@ -10,7 +10,11 @@ lint:
   stage: lint
   image: python:3.8.16
   before_script:
-  - curl -sSf https://rye-up.com/get | bash
+  - echo $PATH
+  - wget https://github.com/mitsuhiko/rye/releases/latest/download/rye-x86_64-linux.gz
+  - gunzip rye-x86_64-linux.gz
+  - chmod +x ./rye-x86_64-linux
+  - ./rye-x86_64-linux
   - rye sync
   script:
   - rye lint
