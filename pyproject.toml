@@ -14,7 +14,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project.scripts]
-people = "people.__main__:main"
+people = "people.main:main"
 
 [tool.flake8]
 max-complexity = 10
