@@ -2,13 +2,14 @@
 import click
 
 from .models import People
+from .utils.table import print_table
 
 
 @click.command(name="ls")
 def list_people() -> None:
     """List contacts."""
-    for man in People.select():
-        print(man.first_name, man.last_name)
+    data = [[man.first_name, man.last_name] for man in People.select()]
+    print_table(["First Name", "Last Name"], data)
 
 
 @click.command
@@ -32,4 +33,6 @@ def remove(first_name: str, last_name: str):
     Args:
         name (str): person first name
     """
-    People.get(People.first_name == first_name and People.last_name == last_name).delete_instance()
+    People.get(
+        People.first_name == first_name and People.last_name == last_name
+    ).delete_instance()
