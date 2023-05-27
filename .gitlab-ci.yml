@@ -12,7 +12,7 @@ lint:
   before_script:
   - pip3 install -r requirements-dev.lock
   script:
-  - black src
+  - black --check src
   - pflake8 src
   - mypy src
 
