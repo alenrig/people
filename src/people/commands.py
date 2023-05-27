@@ -8,3 +8,9 @@ from .models import People
 def ls(ctx: click.Context):
     for man in People.select():
         print(man.name)
+
+
+@click.command
+@click.argument("name")
+def add(name):
+    People.create(name=name)
