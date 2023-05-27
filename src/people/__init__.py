@@ -1,3 +1,5 @@
+"""Package init module."""
+
 from .commands import add, ls
 from .__main__ import people
 from .models import People
