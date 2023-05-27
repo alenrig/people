@@ -9,9 +9,7 @@ class TableCreationError(Exception):
 
 def print_table(header, data) -> None:
     _check_args(header, data)
-    table = PrettyTable()
-    table.field_names = header
-    table.add_rows(data)
+    table = _create_table(header, data)
     print(table)
 
 
@@ -20,3 +18,10 @@ def _check_args(header, data):
         assert len(header) == len(data)
     except AssertionError:
         TableCreationError
+
+
+def _create_table(header, data) -> PrettyTable:
+    table = PrettyTable()
+    table.field_names = header
+    table.add_rows(data)
+    return table
