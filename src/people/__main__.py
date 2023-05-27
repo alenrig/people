@@ -8,5 +8,9 @@ def people(ctx: click.Context, **options):
     ctx.obj = options
 
 
-if __name__ == "__main__":
+def main():
     people()
+
+
+if __name__ == "__main__":
+    main()
