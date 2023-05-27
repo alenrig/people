@@ -6,4 +6,3 @@ People.create_table()
 commands = [ls]
 for command in commands:
     people.add_command(command)
-
