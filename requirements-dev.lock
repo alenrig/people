@@ -24,6 +24,7 @@ pathspec==0.11.1
 peewee==3.16.2
 platformdirs==3.5.1
 pluggy==1.0.0
+prettytable==3.7.0
 pycodestyle==2.9.1
 pyflakes==2.5.0
 pylint==2.17.4
@@ -32,4 +33,5 @@ pytest==7.3.1
 tomli==2.0.1
 tomlkit==0.11.8
 typing-extensions==4.6.2
+wcwidth==0.2.6
 wrapt==1.15.0
