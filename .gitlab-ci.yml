@@ -10,11 +10,10 @@ lint:
   stage: lint
   image: python:3.8.16
   before_script:
-  - pip3 install -r requirements-dev.lock
+  - curl -sSf https://rye-up.com/get | bash
+  - rye sync
   script:
-  - black --check src
-  - pflake8 src
-  - mypy src
+  - rye lint
 
 sast:
   stage: test
