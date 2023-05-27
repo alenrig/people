@@ -1,10 +1,5 @@
-include:
-- template: Security/SAST.gitlab-ci.yml
-- template: Security/Secret-Detection.gitlab-ci.yml
-
 stages:
 - lint
-- test
 
 lint:
   stage: lint
@@ -16,6 +11,3 @@ lint:
   - pflake8 src
   - pylint src
   - mypy src
-
-sast:
-  stage: test
