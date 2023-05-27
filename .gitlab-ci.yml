@@ -10,14 +10,11 @@ lint:
   stage: lint
   image: python:3.8.16
   before_script:
-  - echo $PATH
-  - wget https://github.com/mitsuhiko/rye/releases/latest/download/rye-x86_64-linux.gz
-  - gunzip rye-x86_64-linux.gz
-  - chmod +x ./rye-x86_64-linux
-  - ./rye-x86_64-linux
-  - rye sync
+  - pip3 install -r requirements-dev.lock
   script:
-  - rye lint
+  - black --check src
+  - pflake8 src
+  - mypy src
 
 sast:
   stage: test
