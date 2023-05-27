@@ -2,7 +2,6 @@ from prettytable import PrettyTable
 
 
 class TableCreationError(Exception):
-
     def __str__(self) -> str:
         return "Несоответствие количества заголовков и столбцов данных."
 
