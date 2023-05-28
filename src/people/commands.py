@@ -15,12 +15,12 @@ def list_people() -> None:
     data = [
         [
             f"{man.first_name} {man.last_name}",
-            man.last_contacted,
-            get_date_diff(man.last_contacted),
+            man.last_contact,
+            get_date_diff(man.last_contact),
         ]
         for man in People.select()
     ]
-    print_table(["Name", "Last Contacted", "Days Passed"], data)
+    print_table(["Name", "Last Contact", "Days Passed"], data)
 
 
 @click.command
@@ -28,7 +28,7 @@ def list_people() -> None:
 @click.argument("last_name", type=str)
 @click.option(
     "-l",
-    "--last_contacted_date",
+    "--last_contact",
     type=str,
     default=str(date.today()),
     help="date in dd.mm.YYYY format. Default today.",
@@ -36,14 +36,14 @@ def list_people() -> None:
 def add(
     first_name: str,
     last_name: str,
-    last_contacted: str = str(date.today()),
+    last_contact: str = str(date.today()),
 ) -> None:
     """Add new person using FIRST_NAME and LAST_NAME."""
-    last_contacted_date = date_formatter(last_contacted)
+    last_contact_date = date_formatter(last_contact)
     man = People.create(
-        first_name=first_name, last_name=last_name, last_contacted=last_contacted_date
+        first_name=first_name, last_name=last_name, last_contact=last_contact_date
     )
-    data = [[f"{man.first_name} {man.last_name}", man.last_contacted]]
+    data = [[f"{man.first_name} {man.last_name}", man.last_contact]]
     print_table(TABLE_HEADER, data)
 
 

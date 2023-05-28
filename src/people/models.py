@@ -22,4 +22,4 @@ class People(BaseModel):
 
     first_name = CharField()
     last_name = CharField()
-    last_contacted = DateField()
+    last_contact = DateField()
