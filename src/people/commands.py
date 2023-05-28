@@ -5,7 +5,7 @@ import click
 
 from .__main__ import TABLE_HEADER
 from .models import People
-from .utils.date_formatter import date_formatter
+from .utils.date_formatter import date_formatter, get_date_diff
 from .utils.table import print_table
 
 
@@ -13,10 +13,10 @@ from .utils.table import print_table
 def list_people() -> None:
     """List contacts."""
     data = [
-        [f"{man.first_name} {man.last_name}", man.last_contacted]
+       [f"{man.first_name} {man.last_name}", man.last_contacted, get_date_diff(man.last_contacted)]
         for man in People.select()
     ]
-    print_table(TABLE_HEADER, data)
+    print_table(["Name", "Last Contacted", "Days Passed"], data)
 
 
 @click.command

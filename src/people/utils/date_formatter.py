@@ -1,8 +1,9 @@
 """Module for working with dates."""
 from dateutil import parser
+from datetime import datetime, date
 
 
-def date_formatter(date: str) -> str:
+def date_formatter(inputted_date: str) -> date:
     """Formate date in YYYY-mm-dd format.
 
     Args:
@@ -11,5 +12,9 @@ def date_formatter(date: str) -> str:
     Returns:
         str: date in YYYY-mm-dd format.
     """
-    parsed_date = parser.parse(date)
-    return f"{parsed_date.year}-{parsed_date.month}-{parsed_date.day}"
+    return parser.parse(inputted_date, dayfirst=True).date()
+
+
+def get_date_diff(last_contact_date: date):
+    delta = date.today() - last_contact_date
+    return delta.days
