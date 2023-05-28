@@ -8,8 +8,8 @@ from .utils.table import print_table
 @click.command(name="ls")
 def list_people() -> None:
     """List contacts."""
-    data = [[f"{man.first_name} {man.last_name}"] for man in People.select()]
-    print_table(["Name"], data)
+    data = [[f"{man.first_name} {man.last_name}", man.last_contacted] for man in People.select()]
+    print_table(["Name", "Last Contacted"], data)
 
 
 @click.command
