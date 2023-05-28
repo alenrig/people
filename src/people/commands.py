@@ -21,10 +21,23 @@ def list_people() -> None:
 @click.command
 @click.argument("first_name", type=str)
 @click.argument("last_name", type=str)
-@click.option("-d", "--date", default=date.today, help="Last contacted date")
-def add(first_name: str, last_name: str, date: str) -> None:
-    date = date_formatter(date)
-    People.create(first_name=first_name, last_name=last_name, last_contacted=date)
+@click.option(
+    "-l",
+    "--last_contacted_date",
+    type=str,
+    default=str(date.today()),
+    help="date in dd.mm.YYYY format. Default today.",
+)
+def add(
+    first_name: str,
+    last_name: str,
+    last_contacted_date: str = str(date.today()),
+) -> None:
+    """Add new person using FIRST_NAME and LAST_NAME."""
+    last_contacted_date = date_formatter(last_contacted_date)
+    People.create(
+        first_name=first_name, last_name=last_name, last_contacted=last_contacted_date
+    )
 
 
 @click.command
