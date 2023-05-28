@@ -3,6 +3,9 @@
 import click
 
 
+TABLE_HEADER = ["Name", "Last Contacted"]
+
+
 @click.group
 @click.pass_context
 def people(ctx: click.Context, **options):

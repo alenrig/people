@@ -3,6 +3,7 @@ from datetime import date
 
 import click
 
+from .__main__ import TABLE_HEADER
 from .models import People
 from .utils.date_formatter import date_formatter
 from .utils.table import print_table
@@ -15,7 +16,7 @@ def list_people() -> None:
         [f"{man.first_name} {man.last_name}", man.last_contacted]
         for man in People.select()
     ]
-    print_table(["Name", "Last Contacted"], data)
+    print_table(TABLE_HEADER, data)
 
 
 @click.command
@@ -35,9 +36,13 @@ def add(
 ) -> None:
     """Add new person using FIRST_NAME and LAST_NAME."""
     last_contacted_date = date_formatter(last_contacted_date)
-    People.create(
+    man = People.create(
         first_name=first_name, last_name=last_name, last_contacted=last_contacted_date
     )
+    data = [
+        [f"{man.first_name} {man.last_name}", man.last_contacted]
+    ]
+    print_table(TABLE_HEADER, data)
 
 
 @click.command
