@@ -59,3 +59,14 @@ def remove(first_name: str, last_name: str):
     People.get(
         People.first_name == first_name and People.last_name == last_name
     ).delete_instance()
+
+
+@click.command
+@click.argument("first_name", type=str)
+@click.argument("last_name", type=str)
+def contact(first_name: str, last_name: str):
+    person = People.get(
+        People.first_name == first_name and People.last_name == last_name
+    )
+    person.last_contact = date.today()
+    person.save()
