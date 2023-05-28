@@ -65,6 +65,7 @@ def remove(first_name: str, last_name: str):
 @click.argument("first_name", type=str)
 @click.argument("last_name", type=str)
 def contact(first_name: str, last_name: str):
+    """Set FIRST_NAME LAST_NAME person last contact to current day."""
     person = People.get(
         People.first_name == first_name and People.last_name == last_name
     )
