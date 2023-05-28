@@ -1,10 +1,11 @@
 """Module for CLI commands logic."""
-import click
 from datetime import date
 
+import click
+
 from .models import People
-from .utils.table import print_table
 from .utils.date_formatter import date_formatter
+from .utils.table import print_table
 
 
 @click.command(name="ls")
