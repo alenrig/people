@@ -23,11 +23,6 @@ def list_people() -> None:
     help="Last contacted date"
 )
 def add(first_name: str, last_name: str, date: str) -> None:
-    """Add new person in contacts.
-
-    Args:
-        name (str): person first name
-    """
     People.create(first_name=first_name, last_name=last_name, last_contacted=date)
 
 
