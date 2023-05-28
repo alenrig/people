@@ -4,9 +4,9 @@ from people.utils import table
 @pytest.mark.parametrize(
         "header, data",
         [
-            (1,2),
-            ("a", "b")
+            (["col1", "col2"], [["b"]])
         ] 
 )
-def test_check_table_args(header, data):
-    assert table._check_args(header, data) == 2
+def test_check_table_args_exception(header, data):
+    with pytest.raises(table.TableCreationError):
+        table._check_args(header, data)
