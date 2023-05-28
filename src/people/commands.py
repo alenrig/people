@@ -39,9 +39,7 @@ def add(
     man = People.create(
         first_name=first_name, last_name=last_name, last_contacted=last_contacted_date
     )
-    data = [
-        [f"{man.first_name} {man.last_name}", man.last_contacted]
-    ]
+    data = [[f"{man.first_name} {man.last_name}", man.last_contacted]]
     print_table(TABLE_HEADER, data)
 
 
