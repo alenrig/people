@@ -26,6 +26,7 @@ cache_dir = ".cache/mypy"
 
 [tool.pytest.ini_options]
 cache_dir = ".cache/pytest"
+testpaths = ["tests"]
 
 [tool.rye]
 managed = true
@@ -39,3 +40,4 @@ lint = {chain = ["lint:black", "lint:flake8", "lint:pylint", "lint:mypy"]}
 "lint:flake8" = "pflake8 src"
 "lint:pylint" = "pylint src"
 "lint:mypy" = "mypy src"
+test = "pytest"

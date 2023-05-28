@@ -1,13 +1,21 @@
 stages:
 - lint
+- test
 
-lint:
-  stage: lint
+workflow:
   image: python:3.8.16
   before_script:
   - pip3 install -r requirements-dev.lock
+
+lint:
+  stage: lint
   script:
   - black --check src
   - pflake8 src
   - pylint src
   - mypy src
+
+pytest:
+  stage: test
+  script:
+    - pytest
