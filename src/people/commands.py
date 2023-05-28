@@ -12,7 +12,6 @@ def list_people() -> None:
     print_table(["Name"], data)
 
 
-
 @click.command
 @click.argument("first_name", type=str)
 @click.argument("last_name", type=str)
