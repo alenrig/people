@@ -3,7 +3,7 @@ from datetime import date
 
 import click
 
-from .__main__ import TABLE_HEADER
+from .__main__ import TABLE_HEADER, SHORT_TABLE_HEADER
 from .models import People
 from .utils.dates import date_formatter, get_date_diff
 from .utils.table import print_table
@@ -14,13 +14,13 @@ def list_people() -> None:
     """List contacts."""
     data = [
         [
-            f"{man.first_name} {man.last_name}",
-            man.last_contact,
-            get_date_diff(man.last_contact),
+            f"{person.first_name} {person.last_name}",
+            person.last_contact,
+            get_date_diff(person.last_contact),
         ]
-        for man in People.select()
+        for person in People.select()
     ]
-    print_table(["Name", "Last Contact", "Days Passed"], data)
+    print_table(TABLE_HEADER, data)
 
 
 @click.command
@@ -40,11 +40,11 @@ def add(
 ) -> None:
     """Add new person to contacts."""
     last_contact_date = date_formatter(last_contact)
-    man = People.create(
+    person = People.create(
         first_name=first_name, last_name=last_name, last_contact=last_contact_date
     )
-    data = [[f"{man.first_name} {man.last_name}", man.last_contact]]
-    print_table(TABLE_HEADER, data)
+    data = [[f"{person.first_name} {person.last_name}", str(person.last_contact)]]
+    print_table(SHORT_TABLE_HEADER, data)
 
 
 @click.command
@@ -71,3 +71,5 @@ def contact(first_name: str, last_name: str):
     )
     person.last_contact = date.today()
     person.save()
+    data = [[f"{person.first_name} {person.last_name}", str(person.last_contact)]]
+    print_table(SHORT_TABLE_HEADER, data)

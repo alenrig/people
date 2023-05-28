@@ -3,7 +3,8 @@
 import click
 
 
-TABLE_HEADER = ["Name", "Last Contacted"]
+SHORT_TABLE_HEADER = ["Name", "Last Contacted"]
+TABLE_HEADER = ["Name", "Last Contacted", "Days Passed"]
 
 
 @click.group
