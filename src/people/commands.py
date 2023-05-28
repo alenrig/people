@@ -4,6 +4,7 @@ from datetime import date
 
 from .models import People
 from .utils.table import print_table
+from .utils.date_formatter import date_formatter
 
 
 @click.command(name="ls")
@@ -23,6 +24,7 @@ def list_people() -> None:
     help="Last contacted date"
 )
 def add(first_name: str, last_name: str, date: str) -> None:
+    date = date_formatter(date)
     People.create(first_name=first_name, last_name=last_name, last_contacted=date)
 
 
