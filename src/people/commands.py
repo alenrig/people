@@ -36,10 +36,10 @@ def list_people() -> None:
 def add(
     first_name: str,
     last_name: str,
-    last_contacted_date: str = str(date.today()),
+    last_contacted: str = str(date.today()),
 ) -> None:
     """Add new person using FIRST_NAME and LAST_NAME."""
-    last_contacted_date = date_formatter(last_contacted_date)
+    last_contacted_date = date_formatter(last_contacted)
     man = People.create(
         first_name=first_name, last_name=last_name, last_contacted=last_contacted_date
     )
