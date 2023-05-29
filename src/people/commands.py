@@ -7,20 +7,14 @@ from .__main__ import TABLE_HEADER, SHORT_TABLE_HEADER
 from .models import People
 from .utils.dates import date_formatter, get_date_diff
 from .utils.table import print_table
+from .utils.data_formatter import set_in_rows
 
 
 @click.command(name="ls")
 def list_people() -> None:
     """List contacts."""
-    data = [
-        [
-            f"{person.first_name} {person.last_name}",
-            person.last_contact,
-            get_date_diff(person.last_contact),
-        ]
-        for person in People.select()
-    ]
-    print_table(TABLE_HEADER, data)
+    people = set_in_rows(People.select())
+    print_table(TABLE_HEADER, people)
 
 
 @click.command
@@ -43,8 +37,8 @@ def add(
     person = People.create(
         first_name=first_name, last_name=last_name, last_contact=last_contact_date
     )
-    data = [[f"{person.first_name} {person.last_name}", str(person.last_contact)]]
-    print_table(SHORT_TABLE_HEADER, data)
+    person = set_in_rows([person], passed_days=False)
+    print_table(SHORT_TABLE_HEADER, person)
 
 
 @click.command
@@ -71,5 +65,5 @@ def contact(first_name: str, last_name: str):
     )
     person.last_contact = date.today()
     person.save()
-    data = [[f"{person.first_name} {person.last_name}", str(person.last_contact)]]
-    print_table(SHORT_TABLE_HEADER, data)
+    person = set_in_rows([person], passed_days=False)
+    print_table(SHORT_TABLE_HEADER, person)
