@@ -8,8 +8,8 @@ default:
   - pip3 install -r requirements-dev.lock
   - wget https://github.com/mitsuhiko/rye/releases/latest/download/rye-x86_64-linux.gz
   - gunzip rye-x86_64-linux.gz
-  - mv ./rye* /usr/lib/bin/rye
-  - chmod +x /usr/lib/bin/rye
+  - mv ./rye* /usr/local/bin/rye
+  - chmod +x /usr/local/bin/rye
   - rye --version
   - rye sync
 
