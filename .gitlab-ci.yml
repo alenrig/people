@@ -8,13 +8,12 @@ default:
   - pip3 install -r requirements-dev.lock
   - wget https://github.com/mitsuhiko/rye/releases/latest/download/rye-x86_64-linux.gz
   - gunzip rye-x86_64-linux.gz
-  - chmod +x ./rye-x86_64-linux
-  - ./rye-x86_64-linux --version
+  - mv ./rye* /usr/lib/bin/rye
+  - chmod +x /usr/lib/bin/rye
+  - rye --version
+  - rye sync
 
 lint:
   stage: lint
   script:
-  - black --check src
-  - pflake8 src
-  - pylint src
-  - mypy src
+  - rye run lint
