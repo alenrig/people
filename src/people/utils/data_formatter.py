@@ -15,5 +15,15 @@ def set_in_rows(persons: List[People], passed_days: bool = True) -> List[List[st
         List[List[str]]: list of rows for PrettyTable
     """
     if passed_days:
-        return [[f"{person.first_name} {person.last_name}", person.last_contact, str(get_date_diff(person.last_contact)) ] for person in persons]
-    return [[f"{person.first_name} {person.last_name}", person.last_contact] for person in persons]
+        return [
+            [
+                f"{person.first_name} {person.last_name}",
+                person.last_contact,
+                str(get_date_diff(person.last_contact)),
+            ]
+            for person in persons
+        ]
+    return [
+        [f"{person.first_name} {person.last_name}", person.last_contact]
+        for person in persons
+    ]
