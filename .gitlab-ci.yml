@@ -20,5 +20,7 @@ build:
 lint:
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH
   stage: lint
+  before_script:
+    - rye sync
   script:
-  - rye run lint
+    - rye run lint
