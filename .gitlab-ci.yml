@@ -15,6 +15,7 @@ build:
   rules:
     - if: $CI_COMMIT_BRANCH
       changes:
+        - .gitlab-ci.yml
         - Dockerfile
         - requirements-dev.lock
         - pyproject.toml
