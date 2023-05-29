@@ -1,19 +1,24 @@
 stages:
+- build
 - lint
-- test
 
-default:
-  image: python:3.8.16
-  before_script:
-  - pip3 install -r requirements-dev.lock
-  - wget https://github.com/mitsuhiko/rye/releases/latest/download/rye-x86_64-linux.gz
-  - gunzip rye-x86_64-linux.gz
-  - mv ./rye* /usr/local/bin/rye
-  - chmod +x /usr/local/bin/rye
-  - rye --version
-  - rye sync
-
-lint:
-  stage: lint
+build:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:v1.9.0-debug
+    entrypoint: [""]
   script:
-  - rye run lint
+    - /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_BRANCH}"
+  rules:
+    - if: $CI_COMMIT_BRANCH
+      changes:
+        - Dockerfile
+        - requirements-dev.lock
+  
+# lint:
+#   stage: lint
+#   script:
+#   - rye run lint
