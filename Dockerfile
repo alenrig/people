@@ -1,7 +1,5 @@
 FROM python:3.8.16
 
-WORKDIR /app
-
 RUN wget https://github.com/mitsuhiko/rye/releases/latest/download/rye-x86_64-linux.gz && \
     gunzip rye-x86_64-linux.gz && \
     mv ./rye* /usr/local/bin/rye && \
