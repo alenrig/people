@@ -12,6 +12,7 @@ build:
       --context "${CI_PROJECT_DIR}"
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
       --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_BRANCH}"
+      --cache=true --cache-copy-layers=true --cache-ttl=24h --cache-run-layers=true
   rules:
     - if: $CI_COMMIT_BRANCH
       changes:
