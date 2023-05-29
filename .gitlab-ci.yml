@@ -5,7 +5,7 @@ stages:
 build:
   stage: build
   image:
-    name: gcr.io/kaniko-project/executor:v1.9.0-debug
+    name: gcr.io/kaniko-project/executor:v1.10.0-debug
     entrypoint: [""]
   script:
     - /kaniko/executor
@@ -15,13 +15,10 @@ build:
       --cache=true --cache-copy-layers=true --cache-ttl=24h --cache-run-layers=true
   rules:
     - if: $CI_COMMIT_BRANCH
-      changes:
-        - .gitlab-ci.yml
-        - Dockerfile
-        - requirements-dev.lock
-        - pyproject.toml
-  
-# lint:
-#   stage: lint
-#   script:
-#   - rye run lint
+      when: on_success
+
+lint:
+  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH
+  stage: lint
+  script:
+  - rye run lint
