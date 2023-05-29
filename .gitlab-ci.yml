@@ -5,7 +5,7 @@ stages:
 build:
   stage: build
   image:
-    name: gcr.io/kaniko-project/executor:v1.10.0
+    name: gcr.io/kaniko-project/executor:v1.9.0
     entrypoint: [""]
   script:
     - /kaniko/executor
