@@ -1,7 +1,8 @@
 """Reformat data for table usages."""
+from typing import List
+
 from ..models import People
 from .dates import get_date_diff
-from typing import List
 
 
 def set_in_rows(persons: List[People], passed_days: bool = True) -> List[List[str]]:
