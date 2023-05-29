@@ -5,7 +5,7 @@ import click
 
 from .__main__ import TABLE_HEADER, SHORT_TABLE_HEADER
 from .models import People
-from .utils.dates import date_formatter, get_date_diff
+from .utils.dates import date_formatter
 from .utils.table import print_table
 from .utils.data_formatter import set_in_rows
 
