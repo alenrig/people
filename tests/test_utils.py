@@ -1,6 +1,5 @@
 from people.utils import dates 
 from datetime import date
-from dateutil import parser
 import pytest
 
 
