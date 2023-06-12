@@ -43,7 +43,9 @@ dev-dependencies = [
 allow-direct-references = true
 
 [tool.rye.scripts]
+check = {chain = ["lint", "test"]}
 lint = {chain = ["lint:black", "lint:ruff", "lint:mypy"]}
 "lint:black" = "black --check src"
 "lint:ruff" = "ruff src"
 "lint:mypy" = "mypy src"
+test = "pytest test"
