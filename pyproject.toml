@@ -48,4 +48,4 @@ lint = {chain = ["lint:black", "lint:ruff", "lint:mypy"]}
 "lint:black" = "black --check src"
 "lint:ruff" = "ruff src"
 "lint:mypy" = "mypy src"
-test = "pytest test"
+test = "pytest"
