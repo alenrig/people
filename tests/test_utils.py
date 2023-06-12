@@ -1,6 +1,8 @@
-from people.utils import dates 
 from datetime import date
+
 import pytest
+
+from people.utils import dates
 
 
 class TestDates:
