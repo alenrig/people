@@ -24,3 +24,7 @@ lint:
     - rye sync
   script:
     - rye run lint
+  cache:
+    key: "$CI_COMMIT_REF_SLUG"
+    paths:
+      - ".cache"
