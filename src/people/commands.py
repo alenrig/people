@@ -13,7 +13,7 @@ from .utils.data_formatter import set_in_rows
 @click.command(name="ls")
 def list_people() -> None:
     """List contacts."""
-    people = set_in_rows(People.select())
+    people = set_in_rows(People.select().order_by(People.last_name))
     print_table(TABLE_HEADER, people)
 
 
