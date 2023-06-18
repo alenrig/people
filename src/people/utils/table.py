@@ -1,10 +1,11 @@
 """Module for print data in pretty table."""
-from typing import List
+from typing import List, Union
 
+from peewee import DateField
 from prettytable import PrettyTable
 
 
-def print_table(header: List[str], data: List[List[str]]) -> None:
+def print_table(header: List[str], data: List[List[Union[str, DateField]]]) -> None:
     """Print data in pretty table.
 
     Args:
@@ -15,7 +16,7 @@ def print_table(header: List[str], data: List[List[str]]) -> None:
     print(table)
 
 
-def _create_table(header: List[str], data: List[List[str]]) -> PrettyTable:
+def _create_table(header: List[str], data: List[List[Union[str, DateField]]]) -> PrettyTable:
     """Create PrettyTable object.
 
     Args:
