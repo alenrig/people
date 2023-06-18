@@ -2,6 +2,7 @@
 from datetime import date
 
 from dateutil import parser
+from peewee import DateField
 
 
 def date_formatter(inputted_date: str) -> date:
@@ -16,7 +17,7 @@ def date_formatter(inputted_date: str) -> date:
     return parser.parse(inputted_date, dayfirst=True).date()
 
 
-def get_date_diff(last_contact_date: date) -> int:
+def get_date_diff(last_contact_date: DateField) -> int:
     """Get different between last contact day and today.
 
     Args:
@@ -26,4 +27,4 @@ def get_date_diff(last_contact_date: date) -> int:
         int: different between last contact day and today in days.
     """
     delta = date.today() - last_contact_date
-    return delta.days
+    return delta.days  # type: ignore

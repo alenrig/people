@@ -1,11 +1,15 @@
 """Reformat data for table usages."""
-from typing import List
+from typing import List, Union
+
+from peewee import CharField, DateField
 
 from ..models import People
 from .dates import get_date_diff
 
 
-def set_in_rows(persons: List[People], passed_days: bool = True) -> List[List[str]]:
+def set_in_rows(
+    persons: List[People], passed_days: bool = True
+) -> List[List[Union[str, DateField]]]:
     """Format persons data in table rows.
 
     Args:
@@ -18,13 +22,19 @@ def set_in_rows(persons: List[People], passed_days: bool = True) -> List[List[st
     if passed_days:
         return [
             [
-                f"{person.first_name} {person.last_name}",
+                _set_full_name(person.first_name, person.last_name),
                 person.last_contact,
                 str(get_date_diff(person.last_contact)),
             ]
             for person in persons
         ]
     return [
-        [f"{person.first_name} {person.last_name}", person.last_contact]
+        [_set_full_name(person.first_name, person.last_name), person.last_contact]
         for person in persons
     ]
+
+
+def _set_full_name(
+    first_name: CharField, last_name: CharField, by_last: bool = True
+) -> str:
+    return f"{last_name} {first_name}" if by_last else f"{first_name} {last_name}"
