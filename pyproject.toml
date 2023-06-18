@@ -26,6 +26,9 @@ warn_return_any = true
 warn_unused_configs = true
 ignore_missing_imports = true
 
+[tool.pyright]
+venvPath = ".venv/bin"
+
 [tool.pytest.ini_options]
 cache_dir = ".cache/pytest"
 testpaths = ["tests"]

@@ -16,7 +16,9 @@ def print_table(header: List[str], data: List[List[Union[str, DateField]]]) -> N
     print(table)
 
 
-def _create_table(header: List[str], data: List[List[Union[str, DateField]]]) -> PrettyTable:
+def _create_table(
+    header: List[str], data: List[List[Union[str, DateField]]]
+) -> PrettyTable:
     """Create PrettyTable object.
 
     Args:
