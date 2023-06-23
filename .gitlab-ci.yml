@@ -30,7 +30,7 @@ package build:
     paths:
       - "dist"
   rules:
-    - $CI_COMMIT_REF_NAME == "main"
+    - if: $CI_COMMIT_REF_NAME == "main"
 
 check:
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH
@@ -53,4 +53,4 @@ publish:
   script:
     - rye publish --repository-url ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi --username gitlab-ci-token --token ${CI_JOB_TOKEN}
   rules:
-    - $CI_COMMIT_REF_NAME == "main"
+    - if: $CI_COMMIT_REF_NAME == "main"
