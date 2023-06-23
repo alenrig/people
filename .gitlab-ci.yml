@@ -1,8 +1,9 @@
 stages:
 - build
 - check
+- publish
 
-build:
+build:docker:
   stage: build
   image:
     name: gcr.io/kaniko-project/executor:v1.10.0-debug
@@ -17,6 +18,20 @@ build:
     - if: $CI_COMMIT_BRANCH
       when: on_success
 
+build:package:
+  stage: build
+  image: $CI_REGISTRY_IMAGE:main
+  script:
+    - rye build
+  artifacts:
+    untracked: false
+    when: on_success
+    expire_in: "7 days"
+    paths:
+      - "dist"
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "main"
+
 check:
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH
   stage: check
@@ -28,3 +43,14 @@ check:
     key: "$CI_COMMIT_REF_SLUG"
     paths:
       - ".cache"
+
+publish:
+  stage: publish
+  image: $CI_REGISTRY_IMAGE:main
+  needs:
+    - check
+    - build:package
+  script:
+    - rye publish --repository-url ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi --username gitlab-ci-token --token ${CI_JOB_TOKEN}
+  rules:
+    - if: $CI_COMMIT_REF_NAME == "main"
