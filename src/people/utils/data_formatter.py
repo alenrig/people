@@ -34,7 +34,5 @@ def set_in_rows(
     ]
 
 
-def _set_full_name(
-    first_name: CharField, last_name: CharField, by_last: bool = True
-) -> str:
-    return f"{last_name} {first_name}" if by_last else f"{first_name} {last_name}"
+def _set_full_name(first_name: CharField, last_name: CharField) -> str:
+    return f'{last_name} {first_name if first_name is not None else ""}'.strip()
