@@ -57,9 +57,7 @@ def remove(name: str, surname: str):
     Args:
         name (str): person first name
     """
-    People.get(
-        People.name == name and People.surname == surname
-    ).delete_instance()
+    People.get(People.name == name and People.surname == surname).delete_instance()
 
 
 @click.command
@@ -67,9 +65,7 @@ def remove(name: str, surname: str):
 @click.argument("name", type=str, required=False)
 def contact(name: str, surname: str):
     """Set last contact with person to today."""
-    person: People = People.get(
-        People.name == name and People.surname == surname
-    )
+    person: People = People.get(People.name == name and People.surname == surname)
     person.last_contact = date.today()  # type: ignore
     person.save()
     people: List[List[Union[str, DateField]]] = set_in_rows([person], passed_days=False)
