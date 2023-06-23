@@ -1,5 +1,6 @@
 """Module for CLI commands logic."""
 from datetime import date
+from typing import Optional
 
 import click
 
@@ -18,8 +19,8 @@ def list_people() -> None:
 
 
 @click.command
-@click.argument("first_name", type=str)
 @click.argument("last_name", type=str)
+@click.argument("first_name", type=str, required=False)
 @click.option(
     "-l",
     "--last_contact",
@@ -28,15 +29,20 @@ def list_people() -> None:
     help="date in dd.mm.YYYY format. Default today.",
 )
 def add(
-    first_name: str,
     last_name: str,
+    first_name: Optional[str],
     last_contact: str = str(date.today()),
 ) -> None:
     """Add new person to contacts."""
     last_contact_date = date_formatter(last_contact)
-    person = People.create(
-        first_name=first_name, last_name=last_name, last_contact=last_contact_date
-    )
+    if first_name:
+        person = People.create(
+            first_name=first_name, last_name=last_name, last_contact=last_contact_date
+        )
+    else:
+        person = People.create(
+            last_name=last_name, last_contact=last_contact_date
+        )
     person = set_in_rows([person], passed_days=False)
     print_table(SHORT_TABLE_HEADER, person)
 
