@@ -3,7 +3,7 @@ stages:
 - check
 - publish
 
-docker build:
+build:docker:
   stage: build
   image:
     name: gcr.io/kaniko-project/executor:v1.10.0-debug
@@ -18,7 +18,7 @@ docker build:
     - if: $CI_COMMIT_BRANCH
       when: on_success
 
-package build:
+build:package:
   stage: build
   image: $CI_REGISTRY_IMAGE:main
   script:
@@ -49,7 +49,7 @@ publish:
   image: $CI_REGISTRY_IMAGE:main
   needs:
     - check
-    - package build
+    - build:package
   script:
     - rye publish --repository-url ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi --username gitlab-ci-token --token ${CI_JOB_TOKEN}
   rules:
