@@ -40,9 +40,7 @@ def add(
             first_name=first_name, last_name=last_name, last_contact=last_contact_date
         )
     else:
-        person = People.create(
-            last_name=last_name, last_contact=last_contact_date
-        )
+        person = People.create(last_name=last_name, last_contact=last_contact_date)
     person = set_in_rows([person], passed_days=False)
     print_table(SHORT_TABLE_HEADER, person)
 
