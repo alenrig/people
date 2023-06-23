@@ -21,5 +21,5 @@ class People(BaseModel):
     """
 
     name = CharField(null=True)
-    last_name = CharField()
+    surname = CharField()
     last_contact = DateField()

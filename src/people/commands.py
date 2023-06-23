@@ -16,13 +16,13 @@ from .utils.table import print_table
 def list_people() -> None:
     """List contacts."""
     people: List[List[Union[str, DateField]]] = set_in_rows(
-        People.select().order_by(People.last_name)
+        People.select().order_by(People.surname)
     )
     print_table(TABLE_HEADER, people)
 
 
 @click.command
-@click.argument("last_name", type=str)
+@click.argument("surname", type=str)
 @click.argument("name", type=str, required=False)
 @click.option(
     "-l",
@@ -32,7 +32,7 @@ def list_people() -> None:
     help="date in dd.mm.YYYY format. Default today.",
 )
 def add(
-    last_name: str,
+    surname: str,
     name: Optional[str],
     last_contact: str = str(date.today()),
 ) -> None:
@@ -40,35 +40,35 @@ def add(
     last_contact_date: date = date_formatter(last_contact)
     if name:
         person: People = People.create(
-            name=name, last_name=last_name, last_contact=last_contact_date
+            name=name, surname=surname, last_contact=last_contact_date
         )
     else:
-        person = People.create(last_name=last_name, last_contact=last_contact_date)
+        person = People.create(surname=surname, last_contact=last_contact_date)
     people: List[List[Union[str, DateField]]] = set_in_rows([person], passed_days=False)
     print_table(SHORT_TABLE_HEADER, people)
 
 
 @click.command
-@click.argument("last_name", type=str)
+@click.argument("surname", type=str)
 @click.argument("name", type=str, required=False)
-def remove(name: str, last_name: str):
+def remove(name: str, surname: str):
     """Remove person from contacts.
 
     Args:
         name (str): person first name
     """
     People.get(
-        People.name == name and People.last_name == last_name
+        People.name == name and People.surname == surname
     ).delete_instance()
 
 
 @click.command
-@click.argument("last_name", type=str)
+@click.argument("surname", type=str)
 @click.argument("name", type=str, required=False)
-def contact(name: str, last_name: str):
+def contact(name: str, surname: str):
     """Set last contact with person to today."""
     person: People = People.get(
-        People.name == name and People.last_name == last_name
+        People.name == name and People.surname == surname
     )
     person.last_contact = date.today()  # type: ignore
     person.save()
