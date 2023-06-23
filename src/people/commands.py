@@ -48,8 +48,8 @@ def add(
 
 
 @click.command
-@click.argument("first_name", type=str)
 @click.argument("last_name", type=str)
+@click.argument("first_name", type=str, required=False)
 def remove(first_name: str, last_name: str):
     """Remove person from contacts.
 
@@ -62,8 +62,8 @@ def remove(first_name: str, last_name: str):
 
 
 @click.command
-@click.argument("first_name", type=str)
 @click.argument("last_name", type=str)
+@click.argument("first_name", type=str, required=False)
 def contact(first_name: str, last_name: str):
     """Set last contact with person to today."""
     person = People.get(
