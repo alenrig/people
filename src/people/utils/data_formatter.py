@@ -22,17 +22,17 @@ def set_in_rows(
     if passed_days:
         return [
             [
-                _set_full_name(person.first_name, person.last_name),
+                _set_full_name(person.name, person.last_name),
                 person.last_contact,
                 str(get_date_diff(person.last_contact)),
             ]
             for person in persons
         ]
     return [
-        [_set_full_name(person.first_name, person.last_name), person.last_contact]
+        [_set_full_name(person.name, person.last_name), person.last_contact]
         for person in persons
     ]
 
 
-def _set_full_name(first_name: CharField, last_name: CharField) -> str:
-    return f'{last_name} {first_name if first_name is not None else ""}'.strip()
+def _set_full_name(name: CharField, last_name: CharField) -> str:
+    return f'{last_name} {name if name is not None else ""}'.strip()

@@ -20,6 +20,6 @@ class People(BaseModel):
         BaseModel: parent class with meta definition.
     """
 
-    first_name = CharField(null=True)
+    name = CharField(null=True)
     last_name = CharField()
     last_contact = DateField()
