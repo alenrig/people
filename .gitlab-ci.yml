@@ -50,7 +50,10 @@ publish:
   needs:
     - check
     - build:package
+  before_script:
+    - ls -la
+    - ls -la dist
   script:
-    - rye publish --repository-url ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi --username gitlab-ci-token --token ${CI_JOB_TOKEN}
+    - rye publish --repository-url ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi --username gitlab-ci-token --token ${CI_JOB_TOKEN} -y
   rules:
     - if: $CI_COMMIT_REF_NAME == "main"
