@@ -1,20 +1,23 @@
 """Module for CLI commands logic."""
 from datetime import date
-from typing import Optional
+from typing import List, Optional, Union
 
 import click
+from peewee import DateField
 
-from .__main__ import TABLE_HEADER, SHORT_TABLE_HEADER
+from .__main__ import SHORT_TABLE_HEADER, TABLE_HEADER
 from .models import People
+from .utils.data_formatter import set_in_rows
 from .utils.dates import date_formatter
 from .utils.table import print_table
-from .utils.data_formatter import set_in_rows
 
 
 @click.command(name="ls")
 def list_people() -> None:
     """List contacts."""
-    people = set_in_rows(People.select().order_by(People.last_name))
+    people: List[List[Union[str, DateField]]] = set_in_rows(
+        People.select().order_by(People.last_name)
+    )
     print_table(TABLE_HEADER, people)
 
 
@@ -34,15 +37,15 @@ def add(
     last_contact: str = str(date.today()),
 ) -> None:
     """Add new person to contacts."""
-    last_contact_date = date_formatter(last_contact)
+    last_contact_date: date = date_formatter(last_contact)
     if first_name:
-        person = People.create(
+        person: People = People.create(
             first_name=first_name, last_name=last_name, last_contact=last_contact_date
         )
     else:
         person = People.create(last_name=last_name, last_contact=last_contact_date)
-    person = set_in_rows([person], passed_days=False)
-    print_table(SHORT_TABLE_HEADER, person)
+    people: List[List[Union[str, DateField]]] = set_in_rows([person], passed_days=False)
+    print_table(SHORT_TABLE_HEADER, people)
 
 
 @click.command
@@ -64,10 +67,10 @@ def remove(first_name: str, last_name: str):
 @click.argument("first_name", type=str, required=False)
 def contact(first_name: str, last_name: str):
     """Set last contact with person to today."""
-    person = People.get(
+    person: People = People.get(
         People.first_name == first_name and People.last_name == last_name
     )
-    person.last_contact = date.today()
+    person.last_contact = date.today()  # type: ignore
     person.save()
-    person = set_in_rows([person], passed_days=False)
-    print_table(SHORT_TABLE_HEADER, person)
+    people: List[List[Union[str, DateField]]] = set_in_rows([person], passed_days=False)
+    print_table(SHORT_TABLE_HEADER, people)
