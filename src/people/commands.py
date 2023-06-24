@@ -6,17 +6,26 @@ import click
 from peewee import DateField
 
 from .__main__ import SHORT_TABLE_HEADER, TABLE_HEADER
-from .models import People
+from .models import People, CharField
 from .utils.data_formatter import set_in_rows
 from .utils.dates import date_formatter
 from .utils.table import print_table
 
 
 @click.command(name="ls")
-def list_people() -> None:
+@click.option(
+    "--sort-by",
+    type=click.Choice(["surname", "days"], case_sensitive=False),
+    default="surname",
+)
+def list_people(sort_by: str) -> None:
     """List contacts."""
+    if sort_by == "surname":
+        order: CharField = People.surname  # type: ignore
+    elif sort_by == "days":
+        order: DateField = People.last_contact  # type: ignore
     people: List[List[Union[str, DateField]]] = set_in_rows(
-        People.select().order_by(People.surname)
+        People.select().order_by(order)  # type: ignore
     )
     print_table(TABLE_HEADER, people)
 
