@@ -3,7 +3,10 @@ from datetime import date
 
 import click
 
-from .helpers import add, contact, list_people, remove
+from .helpers.list_people import list_people
+from .helpers.add import add
+from .helpers.remove import remove
+from .helpers.contact import contact
 
 
 @click.command(name="ls")
