@@ -2,7 +2,6 @@
 
 import click
 
-
 SHORT_TABLE_HEADER = ["Name", "Last Contacted"]
 TABLE_HEADER = ["Name", "Last Contact", "Days Passed"]
 
