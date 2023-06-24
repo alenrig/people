@@ -1,15 +1,8 @@
 """Module for CLI commands logic."""
 from datetime import date
-from typing import List, Optional, Union
 
 import click
-from peewee import DateField
 
-from .__main__ import SHORT_TABLE_HEADER, TABLE_HEADER
-from .models import People, CharField
-from .utils.data_formatter import set_in_rows
-from .utils.dates import date_formatter
-from .utils.table import print_table
 from .helpers import list_people, add, remove, contact
 
 
