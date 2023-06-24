@@ -1,5 +1,5 @@
 """Module for ORM modules."""
-from peewee import CharField, Model, SqliteDatabase, DateField
+from peewee import CharField, DateField, Model, SqliteDatabase
 
 db = SqliteDatabase("people.db")
 

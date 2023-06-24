@@ -1,7 +1,7 @@
 """Package init module."""
 
-from .commands import add, list_people, remove, contact
 from .__main__ import people
+from .commands import add, contact, list_people, remove
 from .models import People
 
 People.create_table()
