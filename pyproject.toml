@@ -18,6 +18,8 @@ people = "people.__main__:main"
 
 [tool.ruff]
 cache-dir = ".cache/ruff"
+[tool.ruff.extend-per-file-ignores]
+"__init__.py" = ["F401"]
 
 [tool.mypy]
 python_version = "3.8"
