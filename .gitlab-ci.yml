@@ -62,7 +62,7 @@ publish:release:
     - build:package
     - publish:package
   dependencies:
-    - "build"
+    - "build:package"
   script:
   - echo "release job"
   release:
