@@ -49,21 +49,11 @@ check:
 tag:
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH
   stage: tag
-  before_script:
-    - apt update && apt install nano
   script:
     - VERSION="$(rye version)"
-    - git config --global user.email "agorokhov94@gmail.com"
-    - git config --global user.name "alenrig"
     - git remote add api-origin $CI_REPOSITORY_URL
-    - >
-      if [ $(EDITOR=nano git tag -l "$VERSION") ]; then
-        echo "Version $VERSION already exists"
-        exit 1
-      else
-        git tag -a $VERSION
-        git push api-origin $VERSION
-      fi
+    - git tag -a $VERSION
+    - git push api-origin $VERSION
   rules:
     - if: $CI_COMMIT_BRANCH == 'main'
 
