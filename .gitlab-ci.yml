@@ -49,7 +49,6 @@ publish:package:
   stage: publish
   image: $CI_REGISTRY_IMAGE:main
   needs:
-    - check
     - build:package
   script:
     - rye publish --repository gitlab --repository-url ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi --username gitlab-ci-token --token ${CI_JOB_TOKEN} -y
