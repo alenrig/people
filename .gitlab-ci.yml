@@ -49,6 +49,8 @@ check:
 tag:
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH
   stage: tag
+  variables:
+    CI_JOB_TOKEN: $GIT_PUSH_TOKEN
   script:
     - VERSION="$(rye version)"
     - git config --global user.email "agorokhov94@gmail.com"
