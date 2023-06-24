@@ -15,15 +15,15 @@ from .utils.table import print_table
 @click.command(name="ls")
 @click.option(
     "--sort-by",
-    type=click.Choice(['surname', 'days'], case_sensitive=False),
-    default="surname"
+    type=click.Choice(["surname", "days"], case_sensitive=False),
+    default="surname",
 )
 def list_people(sort_by: str) -> None:
     """List contacts."""
     if sort_by == "surname":
-        order: CharField = People.surname # type: ignore
+        order: CharField = People.surname  # type: ignore
     elif sort_by == "days":
-        order: DateField = People.last_contact # type: ignore
+        order: DateField = People.last_contact  # type: ignore
     people: List[List[Union[str, DateField]]] = set_in_rows(
         People.select().order_by(order)  # type: ignore
     )
