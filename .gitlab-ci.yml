@@ -51,6 +51,8 @@ tag:
   stage: tag
   script:
     - VERSION="$(rye version)"
+    - git config --global user.email "agorokhov94@gmail.com"
+    - git config --global user.name "alenrig"
     - git remote add api-origin $CI_REPOSITORY_URL
     - git tag -a $VERSION
     - git push api-origin $VERSION
