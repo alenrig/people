@@ -63,6 +63,8 @@ publish:release:
     - publish:package
   dependencies:
     - "build"
+  script:
+  - echo "release job"
   release:
     tag_name: $CI_COMMIT_TAG
     description: "Release: $CI_COMMIT_TAG"
