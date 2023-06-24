@@ -1,6 +1,7 @@
 stages:
 - build
 - check
+- tag
 - publish
 
 build:docker:
@@ -44,6 +45,25 @@ check:
       - ".cache"
   rules:
     - if: $CI_COMMIT_BRANCH
+
+tag:
+  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH
+  stage: tag
+  script:
+    - VERSION="$(rye version)"
+    - git config --global user.email "agorokhov94@gmail.com"
+    - git config --global user.name "alenrig"
+    - git remote add api-origin $CI_REPOSITORY_URL
+    - >
+      if [ $(git tag -l "$VERSION") ]; then
+        echo "Version $VERSION already exists"
+        exit 1
+      else
+        git tag -a $VERSION
+        git push api-origin $VERSION
+      fi
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'main'
 
 publish:package:
   stage: publish
