@@ -51,6 +51,6 @@ publish:
     - check
     - build:package
   script:
-    - rye publish --repository-url ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi --username gitlab-ci-token --token ${CI_JOB_TOKEN} -y -v
+    - rye publish --repository gitlab --repository-url ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi --username gitlab-ci-token --token ${CI_JOB_TOKEN} -y -v
   rules:
     - if: $CI_COMMIT_REF_NAME == "main"
