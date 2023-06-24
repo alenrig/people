@@ -27,7 +27,6 @@ def list_people_command(*args, **kwargs) -> None:
     help="date in dd.mm.YYYY format. Default today.",
 )
 def add_command(*args, **kwargs) -> None:
-    """Add new person to contacts."""
     add(*args, **kwargs)
 
 
