@@ -20,12 +20,11 @@ from .utils.table import print_table
 )
 def list_people(sort_by: str) -> None:
     """List contacts."""
-    people: List[List[Union[str, DateField]]]
     if sort_by == "surname":
         order: CharField = People.surname # type: ignore
     elif sort_by == "days":
         order: DateField = People.last_contact # type: ignore
-    people = set_in_rows(
+    people: List[List[Union[str, DateField]]] = set_in_rows(
         People.select().order_by(order)  # type: ignore
     )
     print_table(TABLE_HEADER, people)
