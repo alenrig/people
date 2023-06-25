@@ -18,7 +18,7 @@ def add_person_to_db(
     return result
 
 
-def _is_already_exists(surname: str, name: Optional[str] = None):
+def _is_already_exists(surname: str, name: Optional[str] = None) -> None:
     people = None
     with contextlib.suppress(DoesNotExist):
         people = People.get(People.name == name and People.surname == surname)
