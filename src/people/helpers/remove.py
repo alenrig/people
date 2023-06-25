@@ -1,6 +1,6 @@
-from ..db.models import People
-from ..db.queries import delete_person_from_db
 from typing import Optional
+
+from ..db.queries import delete_person_from_db
 
 
 def remove(surname: str, name: Optional[str]) -> None:

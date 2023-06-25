@@ -1,11 +1,9 @@
 import contextlib
-from peewee import CharField, DateField
-from typing import Union, List, Any
 import sys
 from datetime import date
-from typing import Optional
+from typing import Any, List, Optional, Union
 
-from peewee import DoesNotExist
+from peewee import CharField, DateField, DoesNotExist
 
 from .models import People
 
@@ -28,7 +26,9 @@ def get_all_persons_from_db(order: Union[CharField, DateField]) -> List[People]:
     return People.select().order_by(order)  # type: ignore
 
 
-def update_last_contact_date(person: People, last_contact: date = date.today()) -> People:
+def update_last_contact_date(
+    person: People, last_contact: date = date.today()
+) -> People:
     person.last_contact = last_contact  # type: ignore
     person.save()
     return person
