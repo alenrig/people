@@ -1,4 +1,6 @@
 import contextlib
+from peewee import CharField, DateField
+from typing import Union, List
 import sys
 from datetime import date
 from typing import Optional
@@ -24,6 +26,10 @@ def get_person_from_db(surname: str, name: Optional[str] = None) -> People:
     except DoesNotExist as e:
         sys.exit("Person does not exists.")
     return result
+
+
+def get_all_persons_from_db(order: Union[CharField, DateField]) -> List[People]:
+    return People.select().order_by(order)  # type: ignore
 
 
 def update_last_contact_date(person: People, last_contact: date = date.today()) -> People:
