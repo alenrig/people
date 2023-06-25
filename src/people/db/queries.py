@@ -1,6 +1,6 @@
 import contextlib
 from peewee import CharField, DateField
-from typing import Union, List
+from typing import Union, List, Any
 import sys
 from datetime import date
 from typing import Optional
@@ -13,19 +13,15 @@ from .models import People
 def add_person_to_db(
     surname: str, name: Optional[str] = None, last_contact_date: str = str(date.today())
 ) -> People:
-    _is_already_exists(surname, name)
+    _check_if_already_exists(surname, name)
     result: People = People.create(
         name=name, surname=surname, last_contact=last_contact_date
     )
     return result
 
 
-def get_person_from_db(surname: str, name: Optional[str] = None) -> People:
-    try:
-        result: People = People.get(People.name == name and People.surname == surname)
-    except DoesNotExist as e:
-        sys.exit("Person does not exists.")
-    return result
+def get_person_from_db(surname: str, name: Optional[str] = None) -> Any:
+    return _return_person_if_exists(surname, name)
 
 
 def get_all_persons_from_db(order: Union[CharField, DateField]) -> List[People]:
@@ -38,9 +34,23 @@ def update_last_contact_date(person: People, last_contact: date = date.today()) 
     return person
 
 
-def _is_already_exists(surname: str, name: Optional[str] = None) -> None:
+def delete_person_from_db(surname: str, name: Optional[str] = None) -> None:
+    person = _return_person_if_exists(surname, name)
+    person.delete_instance()
+
+
+def _check_if_already_exists(surname: str, name: Optional[str] = None) -> None:
     people = None
     with contextlib.suppress(DoesNotExist):
         people = People.get(People.name == name and People.surname == surname)
     if people:
         sys.exit("Person already exists.")
+
+
+def _return_person_if_exists(surname: str, name: Optional[str] = None) -> Any:
+    try:
+        person = People.get(People.name == name and People.surname == surname)
+    except DoesNotExist:
+        sys.exit("Person does not exists.")
+    else:
+        return person
