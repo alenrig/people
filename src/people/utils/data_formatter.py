@@ -3,7 +3,7 @@ from typing import List, Union
 
 from peewee import CharField, DateField
 
-from ..models import People
+from ..db.models import People
 from .dates import get_date_diff
 
 

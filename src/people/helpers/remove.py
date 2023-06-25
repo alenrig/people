@@ -1,5 +1,7 @@
-from ..models import People
+from typing import Optional
+
+from ..db.queries import delete_person_from_db
 
 
-def remove(name: str, surname: str) -> None:
-    People.get(People.name == name and People.surname == surname).delete_instance()
+def remove(surname: str, name: Optional[str]) -> None:
+    delete_person_from_db(surname, name)

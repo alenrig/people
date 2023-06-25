@@ -1,7 +1,7 @@
 """Package init module."""
 
 from .__main__ import people
-from .models import People
+from .db.models import People
 
 # isort: off
 from .commands import add_command, contact_command, list_people_command, remove_command

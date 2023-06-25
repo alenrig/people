@@ -56,3 +56,7 @@ lint = {chain = ["lint:isort", "lint:black", "lint:ruff", "lint:mypy"]}
 "lint:ruff" = "ruff src"
 "lint:mypy" = "mypy src"
 test = "pytest"
+fix = {chain = ["fix:isort", "fix:black", "fix:ruff"]}
+"fix:isort" = "isort src"
+"fix:black" = "black src"
+"fix:ruff" = "ruff src --fix"
