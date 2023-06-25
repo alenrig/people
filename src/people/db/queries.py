@@ -1,9 +1,11 @@
 import contextlib
-from datetime import date
-from .models import People
-from typing import Optional
-from peewee import DoesNotExist
 import sys
+from datetime import date
+from typing import Optional
+
+from peewee import DoesNotExist
+
+from .models import People
 
 
 def add_person_to_db(
