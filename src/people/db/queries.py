@@ -18,6 +18,20 @@ def add_person_to_db(
     return result
 
 
+def get_person_from_db(surname: str, name: Optional[str] = None) -> People:
+    try:
+        result: People = People.get(People.name == name and People.surname == surname)
+    except DoesNotExist as e:
+        sys.exit("Person does not exists.")
+    return result
+
+
+def update_last_contact_date(person: People, last_contact: date = date.today()) -> People:
+    person.last_contact = last_contact  # type: ignore
+    person.save()
+    return person
+
+
 def _is_already_exists(surname: str, name: Optional[str] = None) -> None:
     people = None
     with contextlib.suppress(DoesNotExist):

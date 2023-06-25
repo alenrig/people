@@ -7,6 +7,7 @@ from ..__main__ import SHORT_TABLE_HEADER
 from ..db.models import People
 from ..utils.data_formatter import set_in_rows
 from ..utils.table import print_table
+from ..db.queries import get_person_from_db, update_last_contact_date
 
 
 def contact(name: str, surname: str) -> None:
@@ -15,7 +16,6 @@ def contact(name: str, surname: str) -> None:
 
 
 def _contact(name: str, surname: str) -> List[List[Union[str, DateField]]]:
-    person: People = People.get(People.name == name and People.surname == surname)
-    person.last_contact = date.today()  # type: ignore
-    person.save()
+    person = get_person_from_db(surname, name)
+    person = update_last_contact_date(person)
     return set_in_rows([person], passed_days=False)
