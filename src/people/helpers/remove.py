@@ -1,4 +1,4 @@
-from ..models import People
+from ..db.models import People
 
 
 def remove(name: str, surname: str) -> None:

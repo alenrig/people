@@ -4,7 +4,7 @@ from typing import List, Optional, Union
 from peewee import DateField
 
 from ..__main__ import SHORT_TABLE_HEADER
-from ..models import People
+from ..db.models import People
 from ..utils.data_formatter import set_in_rows
 from ..utils.dates import date_formatter
 from ..utils.table import print_table

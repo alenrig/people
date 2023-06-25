@@ -3,7 +3,7 @@ from typing import List, Union
 from peewee import CharField, DateField
 
 from ..__main__ import TABLE_HEADER
-from ..models import People
+from ..db.models import People
 from ..utils.data_formatter import set_in_rows
 from ..utils.table import print_table
 
