@@ -8,6 +8,7 @@ from ..db.models import People
 from ..utils.data_formatter import set_in_rows
 from ..utils.dates import date_formatter
 from ..utils.table import print_table
+from ..db.queries import add_person_to_db
 
 
 def add(
@@ -25,10 +26,5 @@ def _add(
     last_contact: str = str(date.today()),
 ) -> List[List[Union[str, DateField]]]:
     last_contact_date: date = date_formatter(last_contact)
-    if name:
-        person: People = People.create(
-            name=name, surname=surname, last_contact=last_contact_date
-        )
-    else:
-        person = People.create(surname=surname, last_contact=last_contact_date)
+    person = add_person_to_db(surname, name, str(last_contact_date))
     return set_in_rows([person], passed_days=False)
