@@ -2,10 +2,13 @@ from typing import List, Optional, Union
 
 from peewee import DateField
 
-from ..__main__ import SHORT_TABLE_HEADER
+# from ..__main__ import SHORT_TABLE_HEADER
 from ..db.queries import get_person_from_db, update_last_contact_date
 from ..utils.data_formatter import set_in_rows
 from ..utils.table import print_table
+
+SHORT_TABLE_HEADER = ["Name", "Last Contacted"]
+TABLE_HEADER = ["Name", "Last Contact", "Days Passed"]
 
 
 def contact(surname: str, name: Optional[str] = None) -> None:

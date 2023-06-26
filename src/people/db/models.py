@@ -1,7 +1,10 @@
 """Module for ORM modules."""
 from peewee import CharField, DateField, Model, SqliteDatabase
 
-db = SqliteDatabase("people.db")
+from ..config import config
+
+dbpath = f"{config['main']['config_dir']}/{config['database']['file']}"
+db = SqliteDatabase(dbpath)
 
 
 class BaseModel(Model):
