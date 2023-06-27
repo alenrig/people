@@ -17,5 +17,4 @@ def contact(surname: str, name: Optional[str] = None) -> None:
 def _contact(surname: str, name: Optional[str]) -> List[List[Union[str, DateField]]]:
     person: People = get_person_from_db(surname, name)
     person = update_last_contact_date(person)
-    result: List[List[Union[str, DateField]]] = set_in_rows([person], passed_days=False)
-    return result
+    return set_in_rows([person], passed_days=False)
