@@ -2,14 +2,11 @@ from typing import List, Union
 
 from peewee import CharField, DateField
 
-# from ..__main__ import TABLE_HEADER
+from ..configs import TABLE_HEADER
 from ..db.models import People
 from ..db.queries import get_all_persons_from_db
 from ..utils.data_formatter import set_in_rows
 from ..utils.table import print_table
-
-SHORT_TABLE_HEADER = ["Name", "Last Contacted"]
-TABLE_HEADER = ["Name", "Last Contact", "Days Passed"]
 
 
 def list_people(sort_by: str) -> None:
@@ -23,5 +20,4 @@ def _list_people(sort_by: str) -> List[List[Union[str, DateField]]]:
     elif sort_by == "days":
         order: DateField = People.last_contact  # type: ignore
     _people = get_all_persons_from_db(order)  # type: ignore
-    people: List[List[Union[str, DateField]]] = set_in_rows(_people)  # type: ignore
-    return people
+    return set_in_rows(_people)

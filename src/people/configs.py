@@ -2,13 +2,15 @@ from configparser import ConfigParser
 from contextlib import suppress
 from os import getenv, makedirs, path
 
+SHORT_TABLE_HEADER = ["Name", "Last Contacted"]
+TABLE_HEADER = ["Name", "Last Contact", "Days Passed"]
+
 configdir = f"{getenv('HOME')}/.config/people"
 configpath = f"{configdir}/config.ini"
 config = ConfigParser()
 
 
 def get_configs():
-    setup_configs()
     config.read(configpath)
     return config
 

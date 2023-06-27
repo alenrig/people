@@ -1,14 +1,13 @@
 """Package entrypoint."""
 from .cli import setup_commands
 from .cli.groups import people
-from .config import get_configs
+from .configs import setup_configs
 
 
 def main():
-    """Package entrypoint function."""
-    get_configs()
+    setup_configs()
     setup_commands()
-    people()  # pylint: disable=E1120
+    people()
 
 
 if __name__ == "__main__":
