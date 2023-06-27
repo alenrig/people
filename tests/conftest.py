@@ -1,6 +1,6 @@
 import pytest
 from people.db.models import People
-from peewee import SqliteDatabase, Model
+from peewee import SqliteDatabase
 
 
 MODELS = [People]
