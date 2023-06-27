@@ -16,6 +16,9 @@ build-backend = "hatchling.build"
 [project.scripts]
 people = "people.__main__:main"
 
+[tool.isort]
+line_length = 88
+
 [tool.ruff]
 cache-dir = ".cache/ruff"
 [tool.ruff.extend-per-file-ignores]

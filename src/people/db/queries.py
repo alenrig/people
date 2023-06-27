@@ -1,7 +1,7 @@
 import contextlib
 import sys
 from datetime import date
-from typing import Any, List, Optional, Union
+from typing import List, Optional, Union
 
 from peewee import CharField, DateField, DoesNotExist
 
@@ -18,7 +18,7 @@ def add_person_to_db(
     return result
 
 
-def get_person_from_db(surname: str, name: Optional[str] = None) -> Any:
+def get_person_from_db(surname: str, name: Optional[str] = None) -> People:
     return _return_person_if_exists(surname, name)
 
 
@@ -47,9 +47,9 @@ def _check_if_already_exists(surname: str, name: Optional[str] = None) -> None:
         sys.exit("Person already exists.")
 
 
-def _return_person_if_exists(surname: str, name: Optional[str] = None) -> Any:
+def _return_person_if_exists(surname: str, name: Optional[str] = None) -> People:
     try:
-        person = People.get(People.name == name and People.surname == surname)
+        person: People = People.get(People.name == name and People.surname == surname)
     except DoesNotExist:
         sys.exit("Person does not exists.")
     else:

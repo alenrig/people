@@ -1,22 +1,13 @@
 """Package entrypoint."""
-
-import click
-
-SHORT_TABLE_HEADER = ["Name", "Last Contacted"]
-TABLE_HEADER = ["Name", "Last Contact", "Days Passed"]
-
-
-@click.group
-@click.pass_context
-def people(ctx: click.Context, **options):
-    """Track down then you contact someone last time."""
-    ctx.ensure_object(dict)
-    ctx.obj = options
+from .cli import setup_commands
+from .cli.groups import people
+from .configs import setup_configs
 
 
 def main():
-    """Package entrypoint function."""
-    people()  # pylint: disable=E1120
+    setup_configs()
+    setup_commands()
+    people()
 
 
 if __name__ == "__main__":
