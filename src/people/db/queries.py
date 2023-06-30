@@ -27,8 +27,9 @@ def get_all_persons_from_db(order: Union[CharField, DateField]) -> List[People]:
 
 
 def update_last_contact_date(
-    person: People, last_contact: date = date.today()
+    surname: str, name: Optional[str] = None, last_contact: date = date.today()
 ) -> People:
+    person = get_person_from_db(surname, name)
     person.last_contact = last_contact  # type: ignore
     person.save()
     return person

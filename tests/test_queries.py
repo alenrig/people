@@ -1,4 +1,5 @@
-from people.db.queries import add_person_to_db, delete_person_from_db, get_person_from_db
+from people.db.queries import add_person_to_db, delete_person_from_db, get_person_from_db, update_last_contact_date
+from datetime import date
 import pytest
 
 @pytest.mark.parametrize(
@@ -57,3 +58,16 @@ def test_get_person_from_db(test_db, surname, name, expected):
 def test_get_nonexisting_person(test_db):
     with pytest.raises(SystemExit):
         get_person_from_db("surname", "name")
+
+
+@pytest.mark.parametrize(
+    "surname, name, last_contact_date, expected",
+    [
+        ("surname1", "name1", "27.06.2023", date.today()),
+        ("surname2", None, "11.11.2011", date.today())
+    ]
+)
+def test_update_last_contact_date(test_db, surname, name, last_contact_date, expected):
+    add_person_to_db(surname, name, last_contact_date)
+    result = update_last_contact_date(surname, name)
+    assert result.last_contact == expected
