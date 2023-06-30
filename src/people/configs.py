@@ -11,6 +11,7 @@ config = ConfigParser()
 
 
 def get_configs():
+    setup_configs()
     config.read(configpath)
     return config
 

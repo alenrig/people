@@ -3,8 +3,7 @@ from typing import List, Optional, Union
 from peewee import DateField
 
 from ..configs import SHORT_TABLE_HEADER
-from ..db.models import People
-from ..db.queries import get_person_from_db, update_last_contact_date
+from ..db.queries import update_last_contact_date
 from ..utils.data_formatter import set_in_rows
 from ..utils.table import print_table
 
@@ -15,7 +14,5 @@ def contact(surname: str, name: Optional[str] = None) -> None:
 
 
 def _contact(surname: str, name: Optional[str]) -> List[List[Union[str, DateField]]]:
-    person: People = get_person_from_db(surname, name)
-    person = update_last_contact_date(person)
-    result: List[List[Union[str, DateField]]] = set_in_rows([person], passed_days=False)
-    return result
+    person = update_last_contact_date(surname, name)
+    return set_in_rows([person], passed_days=False)
