@@ -17,7 +17,7 @@ build:docker:
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
-    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH
 
 check:
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH
@@ -37,7 +37,7 @@ check:
 
 build:package:
   stage: build
-  image: $CI_REGISTRY_IMAGE:main
+  image: $CI_REGISTRY_IMAGE:$CI_DEFAULT_BRANCH
   script:
     - rye build
   artifacts:
