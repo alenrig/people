@@ -1,4 +1,4 @@
-from people.db.queries import add_person_to_db, delete_person_from_db
+from people.db.queries import add_person_to_db, delete_person_from_db, get_person_from_db
 import pytest
 
 @pytest.mark.parametrize(
@@ -39,3 +39,21 @@ def test_delete_person_from_db(test_db, surname, name):
     delete_person_from_db(surname, name)
     with pytest.raises(SystemExit):
         delete_person_from_db(surname, name)
+
+@pytest.mark.parametrize(
+    "surname, name, expected",
+    [
+        ("surname1", "name1", ("surname1", "name1")),
+        ("surname2", None, ("surname2", None))
+    ]
+)
+def test_get_person_from_db(test_db, surname, name, expected):
+    add_person_to_db(surname, name)
+    result = get_person_from_db(surname, name)
+    assert result.surname == expected[0]
+    assert result.name == expected[1]
+
+
+def test_get_nonexisting_person(test_db):
+    with pytest.raises(SystemExit):
+        get_person_from_db("surname", "name")
