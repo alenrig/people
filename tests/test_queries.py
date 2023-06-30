@@ -1,4 +1,4 @@
-from people.db.queries import add_person_to_db
+from people.db.queries import add_person_to_db, delete_person_from_db
 import pytest
 
 @pytest.mark.parametrize(
@@ -25,3 +25,17 @@ def test_readding_person_to_db(test_db, surname, name):
     add_person_to_db(surname, name)
     with pytest.raises(SystemExit):
         add_person_to_db(surname, name)
+
+
+@pytest.mark.parametrize(
+    "surname, name",
+    [
+        ("surname1", "name1"),
+        ("surname2", None),
+    ]
+)
+def test_delete_person_from_db(test_db, surname, name):
+    add_person_to_db(surname, name)
+    delete_person_from_db(surname, name)
+    with pytest.raises(SystemExit):
+        delete_person_from_db(surname, name)
