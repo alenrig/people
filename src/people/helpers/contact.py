@@ -3,8 +3,7 @@ from typing import List, Optional, Union
 from peewee import DateField
 
 from ..configs import SHORT_TABLE_HEADER
-from ..db.models import People
-from ..db.queries import get_person_from_db, update_last_contact_date
+from ..db.queries import update_last_contact_date
 from ..utils.data_formatter import set_in_rows
 from ..utils.table import print_table
 
