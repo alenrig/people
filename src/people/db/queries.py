@@ -1,9 +1,8 @@
-import contextlib
 import sys
 from datetime import date
 from typing import List, Optional, Union
 
-from peewee import CharField, DateField, DoesNotExist
+from peewee import CharField, DateField
 
 from .models import People
 
@@ -41,17 +40,14 @@ def delete_person_from_db(surname: str, name: Optional[str] = None) -> None:
 
 
 def _check_if_already_exists(surname: str, name: Optional[str] = None) -> None:
-    people = None
-    with contextlib.suppress(DoesNotExist):
-        people = People.get(People.name == name and People.surname == surname)
-    if people:
+    if People.get_or_none(People.name == name and People.surname == surname):
         sys.exit("Person already exists.")
 
 
 def _return_person_if_exists(surname: str, name: Optional[str] = None) -> People:
-    try:
-        person: People = People.get(People.name == name and People.surname == surname)
-    except DoesNotExist:
+    person: People = People.get_or_none(
+        People.name == name and People.surname == surname
+    )
+    if not person:
         sys.exit("Person does not exists.")
-    else:
-        return person
+    return person
