@@ -10,11 +10,7 @@ from ..utils.dates import date_formatter
 from ..utils.table import print_table
 
 
-def contact(
-    surname: str,
-    name: Optional[str] = None,
-    last_contact: str = f"{date.today().day}.{date.today().month}.{date.today().year}",
-) -> None:
+def contact(surname: str, name: Optional[str], last_contact: str) -> None:
     people = _contact(surname, name, last_contact)
     print_table(SHORT_TABLE_HEADER, people)
 

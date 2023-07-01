@@ -13,7 +13,7 @@ from ..utils.table import print_table
 def add(
     surname: str,
     name: Optional[str],
-    last_contact: str = f"{date.today().day}.{date.today().month}.{date.today().year}",
+    last_contact: str,
 ) -> None:
     people = _add(surname=surname, name=name, last_contact=last_contact)
     print_table(SHORT_TABLE_HEADER, people)
@@ -22,7 +22,7 @@ def add(
 def _add(
     surname: str,
     name: Optional[str],
-    last_contact: str = str(date.today()),
+    last_contact: str,
 ) -> List[List[Union[str, DateField]]]:
     last_contact_date: date = date_formatter(last_contact)
     person = add_person_to_db(surname, name, str(last_contact_date))

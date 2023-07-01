@@ -1,8 +1,8 @@
 """Module for CLI commands logic."""
-from datetime import date
 
 import click
 
+from ..configs import TODAY_DATE
 from ..helpers import add, contact, list_people, remove
 
 
@@ -23,7 +23,7 @@ def list_people_command(*args, **kwargs) -> None:
     "-l",
     "--last_contact",
     type=str,
-    default=f"{date.today().day}.{date.today().month}.{date.today().year}",
+    default=TODAY_DATE,
     help="date in dd.mm.YYYY format. Default today.",
 )
 def add_command(*args, **kwargs) -> None:
@@ -44,7 +44,7 @@ def remove_command(*args, **kwargs) -> None:
     "-l",
     "--last_contact",
     type=str,
-    default=f"{date.today().day}.{date.today().month}.{date.today().year}",
+    default=TODAY_DATE,
     help="date in dd.mm.YYYY format. Default today.",
 )
 def contact_command(*args, **kwargs) -> None:
