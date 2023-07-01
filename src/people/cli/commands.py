@@ -23,7 +23,7 @@ def list_people_command(*args, **kwargs) -> None:
     "-l",
     "--last_contact",
     type=str,
-    default=str(date.today()),
+    default=f"{date.today().day}.{date.today().month}.{date.today().year}",
     help="date in dd.mm.YYYY format. Default today.",
 )
 def add_command(*args, **kwargs) -> None:
@@ -40,5 +40,12 @@ def remove_command(*args, **kwargs) -> None:
 @click.command(name="contact")
 @click.argument("surname", type=str)
 @click.argument("name", type=str, required=False)
+@click.option(
+    "-l",
+    "--last_contact",
+    type=str,
+    default=f"{date.today().day}.{date.today().month}.{date.today().year}",
+    help="date in dd.mm.YYYY format. Default today.",
+)
 def contact_command(*args, **kwargs) -> None:
     contact(*args, **kwargs)
