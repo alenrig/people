@@ -26,16 +26,18 @@ class TestDates:
 class TestDataFormatter:
     
     @pytest.mark.parametrize(
-        "surname, name, last_contact, expected",
+        "surname, name, last_contact, passed_days, expected",
         [
-            ("surname", "name", "11.11.2011", [['surname name', '11.11.2011']]),
-            ("surname", None, "01.01.1970", [['surname', '01.01.1970']]),
-            ("surname", "name", None, [['surname name', date.today()]])
+            ("surname", "name", "11.11.2011", False, [['surname name', '11.11.2011']]),
+            ("surname", None, "01.01.1970", False, [['surname', '01.01.1970']]),
+            ("surname", "name", date.today(), False, [["surname name", str(date.today())]]),
+            ("surname", "name", date.today(), True, [["surname name", str(date.today()), '0']])
         ]
     )
-    def test_set_in_rows(self, test_db, surname, name, last_contact, expected):
+    def test_set_in_rows(self, test_db, surname, name, last_contact, passed_days, expected):
         people = queries.add_person_to_db(surname, name, last_contact)
-        assert data_formatter.set_in_rows([people], passed_days=False) == expected
+        assert data_formatter.set_in_rows([people], passed_days=passed_days) == expected
+
 
     @pytest.mark.parametrize(
         "surname, name, expected",

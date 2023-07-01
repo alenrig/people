@@ -5,15 +5,28 @@ import pytest
 @pytest.mark.parametrize(
     "surname, name, last_contact_date, expected",
     [
-        ("surname1", "name1", "27.06.2023", ("surname1", "name1", "27.06.2023")),
-        ("surname2", None, "11.11.2011", ("surname2", None, "11.11.2011"))
+        ("surname", "name", "27.06.2023", ("surname", "name", "27.06.2023")),
+        ("surname", None, "11.11.2011", ("surname", None, "11.11.2011")),
     ]
 )
-def test_add_person_to_db(test_db, surname, name, last_contact_date, expected):
+def test_add_person_to_db_with_dates(test_db, surname, name, last_contact_date, expected):
     result = add_person_to_db(surname, name, last_contact_date)
     assert result.surname == expected[0]
     assert result.name == expected[1]
     assert result.last_contact == expected[2]
+
+
+@pytest.mark.parametrize(
+    "surname, name, expected",
+    [
+        ("surname", "name", ("surname", "name", str(date.today())))
+    ]
+)
+def test_add_person_to_db(test_db, surname, name, expected):
+    person = add_person_to_db(surname, name)
+    assert person.surname == expected[0]
+    assert person.name == expected[1]
+    assert person.last_contact == expected[2]
 
 
 @pytest.mark.parametrize(

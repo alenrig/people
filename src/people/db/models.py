@@ -1,4 +1,6 @@
 """Module for ORM modules."""
+from datetime import date
+
 from peewee import CharField, DateField, Model, SqliteDatabase
 
 from ..configs import config
@@ -25,4 +27,4 @@ class People(BaseModel):
 
     name = CharField(null=True)
     surname = CharField()
-    last_contact = DateField()
+    last_contact = DateField(default=date.today())

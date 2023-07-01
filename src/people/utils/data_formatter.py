@@ -23,13 +23,13 @@ def set_in_rows(
         return [
             [
                 _set_full_name(person.surname, person.name),
-                person.last_contact,
+                str(person.last_contact),
                 str(get_date_diff(person.last_contact)),
             ]
             for person in persons
         ]
     return [
-        [_set_full_name(person.surname, person.name), person.last_contact]
+        [_set_full_name(person.surname, person.name), str(person.last_contact)]
         for person in persons
     ]
 
