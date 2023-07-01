@@ -13,7 +13,7 @@ from ..utils.table import print_table
 def add(
     surname: str,
     name: Optional[str],
-    last_contact: str = str(date.today()),
+    last_contact: str = f"{date.today().day}.{date.today().month}.{date.today().year}",
 ) -> None:
     people = _add(surname=surname, name=name, last_contact=last_contact)
     print_table(SHORT_TABLE_HEADER, people)

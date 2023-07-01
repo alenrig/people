@@ -74,13 +74,14 @@ def test_get_nonexisting_person(test_db):
 
 
 @pytest.mark.parametrize(
-    "surname, name, last_contact_date, expected",
+    "surname, name, last_contact_date, contact_date, expected",
     [
-        ("surname1", "name1", "27.06.2023", date.today()),
-        ("surname2", None, "11.11.2011", date.today())
+        ("surname", "name", "27.06.2023", date.today(), date.today()),
+        ("surname", None, "11.11.2011", date.today(), date.today()),
+        ("surname", "name", "01.01.1970", "02.01.1970", "02.01.1970")
     ]
 )
-def test_update_last_contact_date(test_db, surname, name, last_contact_date, expected):
+def test_update_last_contact_date(test_db, surname, name, last_contact_date, contact_date, expected):
     add_person_to_db(surname, name, last_contact_date)
-    result = update_last_contact_date(surname, name)
+    result = update_last_contact_date(surname, name, contact_date)
     assert result.last_contact == expected
