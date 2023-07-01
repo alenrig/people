@@ -1,7 +1,7 @@
 """Reformat data for table usages."""
-from typing import List, Union
+from typing import List, Optional, Union
 
-from peewee import CharField, DateField
+from peewee import DateField
 
 from ..db.models import People
 from .dates import get_date_diff
@@ -22,17 +22,17 @@ def set_in_rows(
     if passed_days:
         return [
             [
-                _set_full_name(person.name, person.surname),
+                _set_full_name(person.surname, person.name),
                 person.last_contact,
                 str(get_date_diff(person.last_contact)),
             ]
             for person in persons
         ]
     return [
-        [_set_full_name(person.name, person.surname), person.last_contact]
+        [_set_full_name(person.surname, person.name), person.last_contact]
         for person in persons
     ]
 
 
-def _set_full_name(name: CharField, surname: CharField) -> str:
+def _set_full_name(surname: str, name: Optional[str]) -> str:
     return f'{surname} {name if name is not None else ""}'.strip()

@@ -3,7 +3,8 @@ from datetime import date
 import pytest
 
 from people.utils import dates
-from people.utils import date_formatter
+from people.utils import data_formatter
+from people.db import queries
 
 
 class TestDates:
@@ -24,8 +25,17 @@ class TestDates:
 
 class TestDataFormatter:
     
-    def test_set_in_rows(self, test_db):
-        pass
+    @pytest.mark.parametrize(
+        "surname, name, last_contact, expected",
+        [
+            ("surname", "name", "11.11.2011", [['surname name', '11.11.2011']]),
+            ("surname", None, "01.01.1970", [['surname', '01.01.1970']]),
+            ("surname", "name", None, [['surname name', date.today()]])
+        ]
+    )
+    def test_set_in_rows(self, test_db, surname, name, last_contact, expected):
+        people = queries.add_person_to_db(surname, name, last_contact)
+        assert data_formatter.set_in_rows([people], passed_days=False) == expected
 
     @pytest.mark.parametrize(
         "surname, name, expected",
@@ -35,4 +45,4 @@ class TestDataFormatter:
         ]
     )
     def test_set_full_name(self, surname, name, expected):
-        assert date_formatter._set_full_name(surname, name) == expected
+        assert data_formatter._set_full_name(surname, name) == expected
