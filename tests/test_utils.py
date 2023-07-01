@@ -3,6 +3,7 @@ from datetime import date
 import pytest
 
 from people.utils import dates
+from people.utils import date_formatter
 
 
 class TestDates:
@@ -19,3 +20,19 @@ class TestDates:
     )
     def test_date_formatter(self, inputted_date, result):
         assert dates.date_formatter(inputted_date) == result
+
+
+class TestDataFormatter:
+    
+    def test_set_in_rows(self, test_db):
+        pass
+
+    @pytest.mark.parametrize(
+        "surname, name, expected",
+        [
+            ("surname", "name", "surname name"),
+            ("surname", None, "surname")
+        ]
+    )
+    def test_set_full_name(self, surname, name, expected):
+        assert date_formatter._set_full_name(surname, name) == expected
