@@ -9,6 +9,7 @@ from ..helpers import add, contact, list_people, remove
 @click.command(name="ls")
 @click.option(
     "--sort-by",
+    "-s",
     type=click.Choice(["surname", "days"], case_sensitive=False),
     default="surname",
 )
