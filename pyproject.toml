@@ -54,10 +54,11 @@ allow-direct-references = true
 
 [tool.rye.scripts]
 check = {chain = ["lint", "test"]}
-lint = {chain = ["lint:isort", "lint:black", "lint:ruff", "lint:mypy"]}
+lint = {chain = ["lint:isort", "lint:black", "lint:ruff", "lint:pylint", "lint:mypy"]}
 "lint:isort" = "isort --check src"
 "lint:black" = "black --check src"
 "lint:ruff" = "ruff src"
+"lint:pylint" = "pylint src"
 "lint:mypy" = "mypy src"
 test = "pytest"
 fix = {chain = ["fix:isort", "fix:black", "fix:ruff"]}
