@@ -11,6 +11,7 @@ db = SqliteDatabase(dbpath)
 
 
 def setup_db():
+    """Create DB if not exists."""
     if not _is_db_created(dbpath):
         _create_tables()
 
