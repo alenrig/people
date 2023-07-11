@@ -6,10 +6,11 @@ from .db.models import setup_db
 
 
 def main():
+    """Start app."""
     setup_configs()
     setup_commands()
     setup_db()
-    people()
+    people()  # pylint: disable=no-value-for-parameter
 
 
 if __name__ == "__main__":

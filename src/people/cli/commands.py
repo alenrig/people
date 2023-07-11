@@ -14,6 +14,7 @@ from ..helpers import add, contact, list_people, remove
     default="surname",
 )
 def list_people_command(*args, **kwargs) -> None:
+    """List contacts"""
     list_people(*args, **kwargs)
 
 
@@ -28,6 +29,7 @@ def list_people_command(*args, **kwargs) -> None:
     help="date in dd.mm.YYYY format. Default today.",
 )
 def add_command(*args, **kwargs) -> None:
+    """Add new person to contacts"""
     add(*args, **kwargs)
 
 
@@ -35,6 +37,7 @@ def add_command(*args, **kwargs) -> None:
 @click.argument("surname", type=str)
 @click.argument("name", type=str, required=False)
 def remove_command(*args, **kwargs) -> None:
+    """Remove person from contacts"""
     remove(*args, **kwargs)
 
 
@@ -49,4 +52,5 @@ def remove_command(*args, **kwargs) -> None:
     help="date in dd.mm.YYYY format. Default today.",
 )
 def contact_command(*args, **kwargs) -> None:
+    """Change person last contact date"""
     contact(*args, **kwargs)

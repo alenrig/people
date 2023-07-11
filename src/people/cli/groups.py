@@ -1,3 +1,4 @@
+"""People CLI group."""
 import click
 
 

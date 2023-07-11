@@ -1,3 +1,4 @@
+"""Contact command helper."""
 from datetime import date
 from typing import List, Optional, Union
 
@@ -11,6 +12,13 @@ from ..utils.table import print_table
 
 
 def contact(surname: str, name: Optional[str], last_contact: str) -> None:
+    """Update person last contact date.
+
+    Args:
+        surname (str): person surname.
+        name (Optional[str]): person name.
+        last_contact (str): last contact date with person.
+    """
     people = _contact(surname, name, last_contact)
     print_table(SHORT_TABLE_HEADER, people)
 
