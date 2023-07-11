@@ -1,3 +1,4 @@
+"""Add command helper."""
 from datetime import date
 from typing import List, Optional, Union
 
@@ -15,6 +16,13 @@ def add(
     name: Optional[str],
     last_contact: str,
 ) -> None:
+    """Add person to storage and print on terminal caller.
+
+    Args:
+        surname (str): person surname.
+        name (Optional[str]): person name.
+        last_contact (str): person last contact date.
+    """
     people = _add(surname=surname, name=name, last_contact=last_contact)
     print_table(SHORT_TABLE_HEADER, people)
 

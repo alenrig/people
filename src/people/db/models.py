@@ -12,11 +12,11 @@ db = SqliteDatabase(dbpath)
 
 def setup_db():
     """Create DB if not exists."""
-    if not _is_db_created(dbpath):
+    if not _is_db_created():
         _create_tables()
 
 
-def _is_db_created(dbpath: str) -> bool:
+def _is_db_created() -> bool:
     return path.isfile(dbpath)
 
 

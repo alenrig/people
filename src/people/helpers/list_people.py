@@ -1,3 +1,4 @@
+"""List command helper."""
 from typing import List, Union
 
 from peewee import CharField, DateField
@@ -10,6 +11,11 @@ from ..utils.table import print_table
 
 
 def list_people(sort_by: str) -> None:
+    """List peoples in terminal.
+
+    Args:
+        sort_by (str): field to sort by.
+    """
     people = _list_people(sort_by=sort_by)
     print_table(TABLE_HEADER, people)
 
