@@ -24,6 +24,18 @@ cache-dir = ".cache/ruff"
 [tool.ruff.extend-per-file-ignores]
 "__init__.py" = ["F401"]
 
+[tool.pylint."MESSAGES CONTROL"]
+# bad-continuation - pylint sometimes complains about black's formatting; we go with black
+# logging-format-interpolation, logging-fstring-interpolation, logging-not-lazy
+# - pylint wants deferred formatting for log messages (to use less CPU if that
+#   log level is disabled). We prefer the legibility of f-strings: f"a is {a}"
+disable = [
+    "logging-format-interpolation",
+    "logging-fstring-interpolation",
+    "logging-not-lazy",
+    "relative-beyond-top-level"
+]
+
 [tool.mypy]
 python_version = "3.8"
 cache_dir = ".cache/mypy"
