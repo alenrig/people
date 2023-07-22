@@ -15,7 +15,7 @@ def add(
     surname: str,
     name: Optional[str],
     last_contact: str,
-) -> None:
+) -> List[List[Union[str, DateField]]]:
     """Add person to storage and print on terminal caller.
 
     Args:
