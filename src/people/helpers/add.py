@@ -23,14 +23,6 @@ def add(
         name (Optional[str]): person name.
         last_contact (str): person last contact date.
     """
-    return _add(surname=surname, name=name, last_contact=last_contact)
-
-
-def _add(
-    surname: str,
-    name: Optional[str],
-    last_contact: str,
-) -> List[List[Union[str, DateField]]]:
     last_contact_date: date = date_formatter(last_contact)
     person = add_person_to_db(surname, name, str(last_contact_date))
     return set_in_rows([person], passed_days=False)
