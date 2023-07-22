@@ -4,13 +4,13 @@ from typing import List, Optional, Union
 
 from peewee import DateField
 
-from ..configs import SHORT_TABLE_HEADER
 from ..db.queries import add_person_to_db
+from ..decorators.print_table import print_table_wrapper
 from ..utils.data_formatter import set_in_rows
 from ..utils.dates import date_formatter
-from ..utils.table import print_table
 
 
+@print_table_wrapper
 def add(
     surname: str,
     name: Optional[str],
@@ -23,8 +23,7 @@ def add(
         name (Optional[str]): person name.
         last_contact (str): person last contact date.
     """
-    people = _add(surname=surname, name=name, last_contact=last_contact)
-    print_table(SHORT_TABLE_HEADER, people)
+    return _add(surname=surname, name=name, last_contact=last_contact)
 
 
 def _add(
