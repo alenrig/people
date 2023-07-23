@@ -74,7 +74,7 @@ def update_last_contact_date(
     return person
 
 
-def delete_person_from_db(surname: str, name: Optional[str] = None) -> None:
+def delete_person_from_db(surname: str, name: Optional[str] = None) -> People:
     """Delete person from db.
 
     Args:
@@ -83,6 +83,7 @@ def delete_person_from_db(surname: str, name: Optional[str] = None) -> None:
     """
     person = _return_person_if_exists(surname, name)
     person.delete_instance()
+    return person
 
 
 def _check_if_already_exists(surname: str, name: Optional[str] = None) -> None:
