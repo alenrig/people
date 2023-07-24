@@ -5,9 +5,9 @@ from typing import List, Optional, Union
 from peewee import DateField
 
 from ..db.queries import update_last_contact_date
-from ..utils.table import print_table_wrapper
 from ..utils.data_formatter import set_in_rows
 from ..utils.dates import date_formatter
+from ..utils.table import print_table_wrapper
 
 
 @print_table_wrapper

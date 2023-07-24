@@ -2,8 +2,8 @@
 
 import click
 
-from ..configs import TODAY_DATE
 from ..app import add, contact, list_people, remove
+from ..configs import TODAY_DATE
 
 
 @click.command(name="ls")
