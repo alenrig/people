@@ -5,7 +5,7 @@ from peewee import DateField
 
 from ..db.models import People
 from ..db.queries import get_all_persons_from_db
-from ..decorators.print_table import print_table_wrapper
+from ..utils.table import print_table_wrapper
 from ..utils.data_formatter import set_in_rows
 
 

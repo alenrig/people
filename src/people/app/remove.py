@@ -4,7 +4,7 @@ from typing import List, Optional, Union
 from peewee import DateField
 
 from ..db.queries import delete_person_from_db
-from ..decorators.print_table import print_table_wrapper
+from ..utils.table import print_table_wrapper
 from ..utils.data_formatter import set_in_rows
 
 

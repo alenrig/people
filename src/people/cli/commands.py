@@ -3,7 +3,7 @@
 import click
 
 from ..configs import TODAY_DATE
-from ..helpers import add, contact, list_people, remove
+from ..app import add, contact, list_people, remove
 
 
 @click.command(name="ls")
