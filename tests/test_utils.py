@@ -26,17 +26,27 @@ class TestDates:
 class TestDataFormatter:
     
     @pytest.mark.parametrize(
-        "surname, name, last_contact, passed_days, expected",
+        "surname, name, last_contact, expected",
         [
-            ("surname", "name", "11.11.2011", False, [['surname name', '11.11.2011']]),
-            ("surname", None, "01.01.1970", False, [['surname', '01.01.1970']]),
-            ("surname", "name", date.today(), False, [["surname name", str(date.today())]]),
-            ("surname", "name", date.today(), True, [["surname name", str(date.today()), '0']])
+            ("surname", "name", "11.11.2011", [['surname name', '11.11.2011']]),
+            ("surname", None, "01.01.1970", [['surname', '01.01.1970']]),
+            ("surname", "name", date.today(), [["surname name", str(date.today())]]),
         ]
     )
-    def test_set_in_rows(self, test_db, surname, name, last_contact, passed_days, expected):
+    def test_set_in_rows_without_diff(self, test_db, surname, name, last_contact, expected):
         people = queries.add_person_to_db(surname, name, last_contact)
-        assert data_formatter.set_in_rows([people], passed_days=passed_days) == expected
+        assert data_formatter.set_in_rows_without_diff([people]) == expected
+
+    
+    @pytest.mark.parametrize(
+        "surname, name, last_contact, expected",
+        [
+            ("surname", "name", date.today(), [["surname name", str(date.today()), '0']])
+        ]
+    )
+    def test_set_in_rows_with_diff(self, test_db, surname, name, last_contact, expected):
+        people = queries.add_person_to_db(surname, name, last_contact)
+        assert data_formatter.set_in_rows_with_diff([people]) == expected
 
 
     @pytest.mark.parametrize(
@@ -46,5 +56,6 @@ class TestDataFormatter:
             ("surname", None, "surname")
         ]
     )
-    def test_set_full_name(self, surname, name, expected):
-        assert data_formatter._set_full_name(surname, name) == expected
+    def test_set_full_name(self, test_db, surname, name, expected):
+        people = queries.add_person_to_db(surname, name)
+        assert data_formatter._set_full_name(people) == expected
