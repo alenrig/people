@@ -1,15 +1,13 @@
 """Remove from storage command helper."""
-from typing import List, Optional, Union
-
-from peewee import DateField
+from typing import List, Optional
 
 from ..db.queries import delete_person_from_db
-from ..utils.data_formatter import set_in_rows
+from ..utils.data_formatter import set_in_rows_without_diff
 from ..utils.table import print_table_wrapper
 
 
 @print_table_wrapper
-def remove(surname: str, name: Optional[str]) -> List[List[Union[str, DateField]]]:
+def remove(surname: str, name: Optional[str]) -> List[List[str]]:
     """Remove person from storage.
 
     Args:
@@ -17,4 +15,4 @@ def remove(surname: str, name: Optional[str]) -> List[List[Union[str, DateField]
         name (Optional[str]): person name.
     """
     person = delete_person_from_db(surname, name)
-    return set_in_rows([person])
+    return set_in_rows_without_diff([person])
