@@ -9,7 +9,7 @@ variables:
     options:
       - ""
       - "test"
-      - "custom"
+    description: "check"
 
 build:docker:
   stage: build
