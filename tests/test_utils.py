@@ -3,7 +3,7 @@ from datetime import date
 import pytest
 
 from people.utils import dates
-from people.utils import data_formatter
+from people.utils import presenter
 from people.db import queries
 
 
@@ -23,7 +23,7 @@ class TestDates:
         assert dates.date_formatter(inputted_date) == result
 
 
-class TestDataFormatter:
+class TestPresenter:
     
     @pytest.mark.parametrize(
         "surname, name, last_contact, expected",
@@ -35,7 +35,7 @@ class TestDataFormatter:
     )
     def test_set_in_rows_without_diff(self, test_db, surname, name, last_contact, expected):
         people = queries.add_person_to_db(surname, name, last_contact)
-        assert data_formatter.set_in_rows_without_diff([people]) == expected
+        assert presenter.set_in_rows_without_diff([people]) == expected
 
     
     @pytest.mark.parametrize(
@@ -46,7 +46,7 @@ class TestDataFormatter:
     )
     def test_set_in_rows_with_diff(self, test_db, surname, name, last_contact, expected):
         people = queries.add_person_to_db(surname, name, last_contact)
-        assert data_formatter.set_in_rows_with_diff([people]) == expected
+        assert presenter.set_in_rows_with_diff([people]) == expected
 
 
     @pytest.mark.parametrize(
@@ -58,4 +58,4 @@ class TestDataFormatter:
     )
     def test_set_full_name(self, test_db, surname, name, expected):
         people = queries.add_person_to_db(surname, name)
-        assert data_formatter._set_full_name(people) == expected
+        assert presenter._set_full_name(people) == expected

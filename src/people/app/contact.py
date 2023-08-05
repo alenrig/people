@@ -1,15 +1,14 @@
 """Contact command helper."""
 from datetime import date
-from typing import List, Optional
+from typing import Optional
+
+from people.db.models import People
 
 from ..db.queries import update_last_contact_date
-from ..utils.data_formatter import set_in_rows_without_diff
 from ..utils.dates import date_formatter
-from ..utils.table import print_table_wrapper
 
 
-@print_table_wrapper
-def contact(surname: str, name: Optional[str], last_contact: str) -> List[List[str]]:
+def contact_person(surname: str, name: Optional[str], last_contact: str) -> People:
     """Update person last contact date.
 
     Args:
@@ -18,5 +17,4 @@ def contact(surname: str, name: Optional[str], last_contact: str) -> List[List[s
         last_contact (str): last contact date with person.
     """
     last_contact_date: date = date_formatter(last_contact)
-    person = update_last_contact_date(surname, name, last_contact_date)
-    return set_in_rows_without_diff([person])
+    return update_last_contact_date(surname, name, last_contact_date)
