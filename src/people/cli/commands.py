@@ -2,8 +2,11 @@
 
 import click
 
-from ..app import add, contact, list_people, remove
-from ..configs import TODAY_DATE
+from people.utils.presenter import set_in_rows_with_diff, set_in_rows_without_diff
+from people.utils.view import print_table
+
+from ..app import add_person, contact_person, list_people, remove_person
+from ..configs import SHORT_TABLE_HEADER, TABLE_HEADER, TODAY_DATE
 
 
 @click.command(name="ls")
@@ -13,9 +16,11 @@ from ..configs import TODAY_DATE
     type=click.Choice(["surname", "days"], case_sensitive=False),
     default="surname",
 )
-def list_people_command(*args, **kwargs) -> None:
+def list_people_command(sort_by: str) -> None:
     """List contacts"""
-    list_people(*args, **kwargs)
+    peoples = list_people(sort_by=sort_by)
+    presented_peoples = set_in_rows_with_diff(peoples)
+    print_table(TABLE_HEADER, presented_peoples)
 
 
 @click.command(name="add")
@@ -28,17 +33,21 @@ def list_people_command(*args, **kwargs) -> None:
     default=TODAY_DATE,
     help="date in dd.mm.YYYY format. Default today.",
 )
-def add_command(*args, **kwargs) -> None:
+def add_command(surname, name, last_contact) -> None:
     """Add new person to contacts"""
-    add(*args, **kwargs)
+    person = add_person(surname, name, last_contact)
+    presented_person = set_in_rows_without_diff([person])
+    print_table(SHORT_TABLE_HEADER, presented_person)
 
 
 @click.command(name="remove")
 @click.argument("surname", type=str)
 @click.argument("name", type=str, required=False)
-def remove_command(*args, **kwargs) -> None:
+def remove_command(surname, name) -> None:
     """Remove person from contacts"""
-    remove(*args, **kwargs)
+    person = remove_person(surname, name)
+    presented_person = set_in_rows_without_diff([person])
+    print_table(SHORT_TABLE_HEADER, presented_person)
 
 
 @click.command(name="contact")
@@ -51,6 +60,8 @@ def remove_command(*args, **kwargs) -> None:
     default=TODAY_DATE,
     help="date in dd.mm.YYYY format. Default today.",
 )
-def contact_command(*args, **kwargs) -> None:
+def contact_command(surname, name, last_contact) -> None:
     """Change person last contact date"""
-    contact(*args, **kwargs)
+    person = contact_person(surname, name, last_contact)
+    presented_person = set_in_rows_without_diff([person])
+    print_table(SHORT_TABLE_HEADER, presented_person)

@@ -1,18 +1,16 @@
 """Remove from storage command helper."""
-from typing import List, Optional
+from typing import Optional
+
+from people.db.models import People
 
 from ..db.queries import delete_person_from_db
-from ..utils.data_formatter import set_in_rows_without_diff
-from ..utils.table import print_table_wrapper
 
 
-@print_table_wrapper
-def remove(surname: str, name: Optional[str]) -> List[List[str]]:
+def remove_person(surname: str, name: Optional[str]) -> People:
     """Remove person from storage.
 
     Args:
         surname (str): person surname.
         name (Optional[str]): person name.
     """
-    person = delete_person_from_db(surname, name)
-    return set_in_rows_without_diff([person])
+    return delete_person_from_db(surname, name)
