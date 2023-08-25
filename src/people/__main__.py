@@ -1,8 +1,8 @@
 """Package entrypoint."""
-from .cli import setup_commands
-from .cli.groups import people
-from .configs import setup_configs
-from .db.models import setup_db
+from people.cli import setup_commands
+from people.cli.groups import people
+from people.configs import setup_configs
+from people.db.models import  setup_db
 
 
 def main():

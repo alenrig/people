@@ -9,7 +9,7 @@ def date_formatter(inputted_date: str) -> date:
     """Formate date in YYYY-mm-dd format.
 
     Args:
-        date (str): datetime in any format.
+        inputted_date (str): datetime in any format.
 
     Returns:
         str: date in YYYY-mm-dd format.
