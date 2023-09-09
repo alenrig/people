@@ -2,7 +2,7 @@
 from datetime import date
 from os import path
 
-from peewee import CharField, DateField, Model, SqliteDatabase
+from peewee import AutoField, CharField, DateField, Model, SqliteDatabase
 
 from ..configs import config
 
@@ -40,6 +40,7 @@ class People(BaseModel):
         BaseModel: parent class with meta definition.
     """
 
+    id = AutoField()
     name = CharField(null=True)
     surname = CharField()
     last_contact = DateField(default=date.today())
