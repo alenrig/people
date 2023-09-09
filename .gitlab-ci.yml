@@ -63,12 +63,12 @@ coverage:
   extends:
     - .test
   script:
-    - rye run test
+    - rye run coverage
   artifacts:
     reports:
       coverage_report:
         coverage_format: cobertura
-        path: cov.xml
+        path: coverage.xml
 
 build:package:
   stage: build

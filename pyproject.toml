@@ -61,6 +61,7 @@ dev-dependencies = [
     "isort>=5.12.0",
     "pylint>=2.17.4",
     "pytest-cov>=4.1.0",
+    "coverage>=7.3.1",
 ]
 [tool.hatch.metadata]
 allow-direct-references = true
@@ -74,6 +75,7 @@ lint = {chain = ["lint:isort", "lint:black", "lint:ruff", "lint:pylint", "lint:m
 "lint:pylint" = "pylint src"
 "lint:mypy" = "mypy src"
 test = "pytest --junit-xml=report.xml --cov=people --cov-report xml:cov.xml"
+coverage = "coverage xml"
 fix = {chain = ["fix:isort", "fix:black", "fix:ruff"]}
 "fix:isort" = "isort src"
 "fix:black" = "black src"
