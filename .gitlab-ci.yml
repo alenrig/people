@@ -35,6 +35,9 @@ check:
     - rye sync
   script:
     - rye run check
+  artifacts:
+    reports:
+      junit: ["report.xml"]
   cache:
     key: "$CI_COMMIT_REF_SLUG"
     paths:

@@ -72,7 +72,7 @@ lint = {chain = ["lint:isort", "lint:black", "lint:ruff", "lint:pylint", "lint:m
 "lint:ruff" = "ruff src"
 "lint:pylint" = "pylint src"
 "lint:mypy" = "mypy src"
-test = "pytest"
+test = "pytest --junit-xml=report.xml"
 fix = {chain = ["fix:isort", "fix:black", "fix:ruff"]}
 "fix:isort" = "isort src"
 "fix:black" = "black src"
