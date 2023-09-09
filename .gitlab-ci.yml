@@ -1,6 +1,7 @@
 stages:
 - build
-- check
+- lint
+- test
 - publish
 
 variables:
@@ -27,14 +28,14 @@ build:docker:
       when: never
     - if: $CI_COMMIT_BRANCH
 
-check:
+lint:
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH
-  stage: check
+  stage: lint
   before_script:
     - env
     - rye sync
   script:
-    - rye run check
+    - rye run lint
   artifacts:
     reports:
       junit: ["report.xml"]
@@ -49,6 +50,41 @@ check:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_COMMIT_BRANCH
+
+.test:
+  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH
+  stage: test
+  before_script:
+    - env
+    - rye sync
+  cache:
+    key: "$CI_COMMIT_REF_SLUG"
+    paths:
+      - ".cache"
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_BRANCH
+
+unit test:
+  extends:
+    - .test
+  script:
+    - rye run test
+  artifacts:
+    reports:
+      junit: ["report.xml"]
+
+coverage:
+  extends:
+    - .test
+  script:
+    - rye run test
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: cov.xml
 
 build:package:
   stage: build
