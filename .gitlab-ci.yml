@@ -28,29 +28,6 @@ build:docker:
       when: never
     - if: $CI_COMMIT_BRANCH
 
-lint:
-  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH
-  stage: lint
-  before_script:
-    - env
-    - rye sync
-  script:
-    - rye run lint
-  artifacts:
-    reports:
-      junit: ["report.xml"]
-      coverage_report:
-        coverage_format: cobertura
-        path: cov.xml
-  cache:
-    key: "$CI_COMMIT_REF_SLUG"
-    paths:
-      - ".cache"
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_COMMIT_BRANCH
-
 .test:
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH
   stage: test
@@ -65,6 +42,13 @@ lint:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: never
     - if: $CI_COMMIT_BRANCH
+
+lint:
+  extends:
+    - .test
+  stage: lint
+  script:
+    - rye run lint
 
 unit test:
   extends:
