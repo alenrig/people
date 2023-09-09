@@ -16,11 +16,12 @@ def set_in_rows_with_diff(persons: List[People]) -> List[List[str]]:
     """
     return [
         [
+            str(i),
             _set_full_name(person),
             str(person.last_contact),
             str(get_date_diff(person.last_contact)),
         ]
-        for person in persons
+        for i, person in enumerate(persons)
     ]
 
 
@@ -33,7 +34,10 @@ def set_in_rows_without_diff(persons: List[People]) -> List[List[str]]:
     Returns:
         List[List[str]]: list of rows for PrettyTable
     """
-    return [[_set_full_name(person), str(person.last_contact)] for person in persons]
+    return [
+        [str(i), _set_full_name(person), str(person.last_contact)]
+        for i, person in enumerate(persons)
+    ]
 
 
 def _set_full_name(person: People) -> str:
