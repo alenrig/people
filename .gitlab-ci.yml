@@ -64,6 +64,7 @@ coverage:
     - .test
   script:
     - rye run cov
+  coverage: '/TOTAL.*\s+(\d+%)$/'
   artifacts:
     reports:
       coverage_report:
