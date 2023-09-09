@@ -4,8 +4,8 @@ from contextlib import suppress
 from datetime import date
 from os import getenv, makedirs, path
 
-SHORT_TABLE_HEADER = ["Name", "Last Contacted"]
-TABLE_HEADER = ["Name", "Last Contact", "Days Passed"]
+SHORT_TABLE_HEADER = ["", "Name", "Last Contacted"]
+TABLE_HEADER = ["", "Name", "Last Contact", "Days Passed"]
 TODAY_DATE = date.today().strftime("%d.%m.%Y")
 
 configdir = f"{getenv('HOME')}/.config/people"
