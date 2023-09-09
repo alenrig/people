@@ -50,14 +50,14 @@ lint:
   script:
     - rye run lint
 
-#unit test:
-#  extends:
-#    - .test
-#  script:
-#    - rye run test
-#  artifacts:
-#    reports:
-#      junit: ["report.xml"]
+unit test:
+  extends:
+    - .test
+  script:
+    - rye run test
+  artifacts:
+    reports:
+      junit: ["report.xml"]
 
 coverage:
   extends:
