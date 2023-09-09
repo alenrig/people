@@ -11,5 +11,9 @@ def list_people(sort_by: str) -> List[People]:
     Args:
         sort_by (str): field to sort by.
     """
-    order = People.last_contact if sort_by == "days" else People.surname
+    order = People.id
+    if sort_by == "days":
+        order = People.last_contact
+    elif sort_by == "surname":
+        order = People.surname
     return get_all_persons_from_db(order)

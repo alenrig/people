@@ -2,6 +2,7 @@ from people.db.queries import add_person_to_db, delete_person_from_db, get_perso
 from datetime import date
 import pytest
 
+
 @pytest.mark.parametrize(
     "surname, name, last_contact_date, expected",
     [
@@ -35,7 +36,7 @@ def test_add_person_to_db(test_db, surname, name, expected):
         ("surname1", "name1"),
     ]
 )
-def test_readding_person_to_db(test_db, surname, name):
+def test_reading_person_to_db(test_db, surname, name):
     add_person_to_db(surname, name)
     with pytest.raises(SystemExit):
         add_person_to_db(surname, name)
@@ -54,6 +55,7 @@ def test_delete_person_from_db(test_db, surname, name):
     with pytest.raises(SystemExit):
         delete_person_from_db(surname, name)
 
+
 @pytest.mark.parametrize(
     "surname, name, expected",
     [
@@ -68,7 +70,7 @@ def test_get_person_from_db(test_db, surname, name, expected):
     assert result.name == expected[1]
 
 
-def test_get_nonexisting_person(test_db):
+def test_get_non_existing_person(test_db):
     with pytest.raises(SystemExit):
         get_person_from_db("surname", "name")
 

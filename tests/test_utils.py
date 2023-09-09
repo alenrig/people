@@ -9,6 +9,7 @@ from people.db import queries
 
 class TestDates:
 
+    # noinspection PyTypeChecker
     def test_get_date_diff(self):
         assert dates.get_date_diff(date.today()) == 0
 
@@ -24,30 +25,29 @@ class TestDates:
 
 
 class TestPresenter:
-    
+
     @pytest.mark.parametrize(
         "surname, name, last_contact, expected",
         [
-            ("surname", "name", "11.11.2011", [['surname name', '11.11.2011']]),
-            ("surname", None, "01.01.1970", [['surname', '01.01.1970']]),
-            ("surname", "name", date.today(), [["surname name", str(date.today())]]),
+            ("surname", "name", "11.11.2011", [['1', 'surname name', '11.11.2011']]),
+            ("surname", None, "01.01.1970", [['1', 'surname', '01.01.1970']]),
+            ("surname", "name", date.today(), [['1', "surname name", str(date.today())]]),
         ]
     )
     def test_set_in_rows_without_diff(self, test_db, surname, name, last_contact, expected):
         people = queries.add_person_to_db(surname, name, last_contact)
         assert presenter.set_in_rows_without_diff([people]) == expected
 
-    
+    # noinspection PyTypeChecker
     @pytest.mark.parametrize(
         "surname, name, last_contact, expected",
         [
-            ("surname", "name", date.today(), [["surname name", str(date.today()), '0']])
+            ("surname", "name", date.today(), [['1', "surname name", str(date.today()), '0']])
         ]
     )
     def test_set_in_rows_with_diff(self, test_db, surname, name, last_contact, expected):
         people = queries.add_person_to_db(surname, name, last_contact)
         assert presenter.set_in_rows_with_diff([people]) == expected
-
 
     @pytest.mark.parametrize(
         "surname, name, expected",

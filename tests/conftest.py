@@ -5,6 +5,7 @@ from peewee import SqliteDatabase
 
 MODELS = [People]
 
+
 @pytest.fixture
 def test_db():
     """Setup Database"""
