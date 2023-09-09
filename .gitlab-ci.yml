@@ -63,7 +63,7 @@ coverage:
   extends:
     - .test
   script:
-    - rye run coverage
+    - rye run cov
   artifacts:
     reports:
       coverage_report:
