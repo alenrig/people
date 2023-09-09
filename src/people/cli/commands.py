@@ -13,8 +13,8 @@ from ..configs import SHORT_TABLE_HEADER, TABLE_HEADER, TODAY_DATE
 @click.option(
     "--sort-by",
     "-s",
-    type=click.Choice(["surname", "days"], case_sensitive=False),
-    default="surname",
+    type=click.Choice(["id", "surname", "days"], case_sensitive=False),
+    default="id",
 )
 def list_people_command(sort_by: str) -> None:
     """List contacts"""
