@@ -38,6 +38,9 @@ check:
   artifacts:
     reports:
       junit: ["report.xml"]
+      coverage_report:
+        coverage_format: cobertura
+        path: cov.xml
   cache:
     key: "$CI_COMMIT_REF_SLUG"
     paths:
