@@ -60,7 +60,7 @@ coverage:
     reports:
       coverage_report:
         coverage_format: cobertura
-        path: cov.xml
+        path: coverage.xml
 
 build:package:
   stage: build
