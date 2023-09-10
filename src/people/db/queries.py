@@ -29,7 +29,7 @@ def add_person_to_db(
     return result
 
 
-def get_person_from_db(surname: str, name: Optional[str] = None) -> People:
+def get_person_from_db(id: int) -> People:
     """Get person from db
 
     Args:
@@ -39,7 +39,7 @@ def get_person_from_db(surname: str, name: Optional[str] = None) -> People:
     Returns:
         People: instance of Person
     """
-    return _return_person_if_exists(surname, name)
+    return _return_person_if_exists(id)
 
 
 def get_all_persons_from_db(order: Union[CharField, DateField]) -> List[People]:
@@ -55,7 +55,7 @@ def get_all_persons_from_db(order: Union[CharField, DateField]) -> List[People]:
 
 
 def update_last_contact_date(
-    surname: str, name: Optional[str] = None, last_contact: date = date.today()
+    id: int, last_contact: date = date.today()
 ) -> People:
     """Update last contact date with person
 
@@ -68,20 +68,20 @@ def update_last_contact_date(
     Returns:
         People: instance of People.
     """
-    person = get_person_from_db(surname, name)
+    person = get_person_from_db(id)
     person.last_contact = last_contact  # type: ignore
     person.save()
     return person
 
 
-def delete_person_from_db(surname: str, name: Optional[str] = None) -> People:
+def delete_person_from_db(id: int) -> People:
     """Delete person from db.
 
     Args:
         surname (str): person surname.
         name (Optional[str], optional): person name. Defaults to None.
     """
-    person = _return_person_if_exists(surname, name)
+    person = _return_person_if_exists(id)
     person.delete_instance()
     return person
 
@@ -91,9 +91,9 @@ def _check_if_already_exists(surname: str, name: Optional[str] = None) -> None:
         sys.exit("Person already exists.")
 
 
-def _return_person_if_exists(surname: str, name: Optional[str] = None) -> People:
+def _return_person_if_exists(id: int) -> People:
     person: People = People.get_or_none(
-        People.name == name and People.surname == surname
+        People.id == id
     )
     if not person:
         sys.exit("Person does not exists.")

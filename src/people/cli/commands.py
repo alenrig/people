@@ -41,11 +41,10 @@ def add_command(surname, name, last_contact) -> None:
 
 
 @click.command(name="remove")
-@click.argument("surname", type=str)
-@click.argument("name", type=str, required=False)
-def remove_command(surname, name) -> None:
+@click.argument("id", type=int)
+def remove_command(id) -> None:
     """Remove person from contacts"""
-    person = remove_person(surname, name)
+    person = remove_person(id)
     presented_person = set_in_rows_without_diff([person])
     print_table(SHORT_TABLE_HEADER, presented_person)
 
