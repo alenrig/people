@@ -42,16 +42,15 @@ def add_command(surname, name, last_contact) -> None:
 
 @click.command(name="remove")
 @click.argument("id", type=int)
-def remove_command(id) -> None:
+def remove_command(index) -> None:
     """Remove person from contacts"""
-    person = remove_person(id)
+    person = remove_person(index)
     presented_person = set_in_rows_without_diff([person])
     print_table(SHORT_TABLE_HEADER, presented_person)
 
 
 @click.command(name="contact")
-@click.argument("surname", type=str)
-@click.argument("name", type=str, required=False)
+@click.argument("index", type=int)
 @click.option(
     "-l",
     "--last_contact",
@@ -59,8 +58,8 @@ def remove_command(id) -> None:
     default=TODAY_DATE,
     help="date in dd.mm.YYYY format. Default today.",
 )
-def contact_command(surname, name, last_contact) -> None:
+def contact_command(index, last_contact) -> None:
     """Change person last contact date"""
-    person = contact_person(surname, name, last_contact)
+    person = contact_person(index, last_contact)
     presented_person = set_in_rows_without_diff([person])
     print_table(SHORT_TABLE_HEADER, presented_person)
