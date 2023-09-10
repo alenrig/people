@@ -33,8 +33,7 @@ def get_person_from_db(id: int) -> People:
     """Get person from db
 
     Args:
-        surname (str): person surname
-        name (Optional[str], optional): person name. Defaults to None.
+        id (int): person id.
 
     Returns:
         People: instance of Person
@@ -60,8 +59,7 @@ def update_last_contact_date(
     """Update last contact date with person
 
     Args:
-        surname (str): person surname.
-        name (Optional[str], optional): person name. Defaults to None.
+        id (int): person id.
         last_contact (date, optional): last contact date with person.
         Defaults to date.today().
 
@@ -78,8 +76,7 @@ def delete_person_from_db(id: int) -> People:
     """Delete person from db.
 
     Args:
-        surname (str): person surname.
-        name (Optional[str], optional): person name. Defaults to None.
+        id (int): person id.
     """
     person = _return_person_if_exists(id)
     person.delete_instance()

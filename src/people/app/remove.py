@@ -10,7 +10,6 @@ def remove_person(id: int) -> People:
     """Remove person from storage.
 
     Args:
-        surname (str): person surname.
-        name (Optional[str]): person name.
+        id (int): person id.
     """
     return delete_person_from_db(id)
