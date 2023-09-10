@@ -65,6 +65,13 @@ coverage:
         coverage_format: cobertura
         path: cov.xml
 
+gemnasium-dependency_scanning:
+  tags: [ saas-linux-large-amd64 ]
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_BRANCH
+
 build:package:
   stage: build
   image: $CI_REGISTRY_IMAGE:$CI_DEFAULT_BRANCH
