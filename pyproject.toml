@@ -50,6 +50,17 @@ venvPath = ".venv/bin"
 cache_dir = ".cache/pytest"
 testpaths = ["tests"]
 
+[tool.coverage.run]
+branch = true
+source = ["people"]
+command_line = "-m pytest"
+
+[tool.coverage.report]
+show_missing = true
+
+[tool.coverage.xml]
+output = "coverage.xml"
+
 [tool.rye]
 managed = true
 dev-dependencies = [
@@ -60,6 +71,8 @@ dev-dependencies = [
     "ruff~=0.0.272",
     "isort>=5.12.0",
     "pylint>=2.17.4",
+    "pytest-cov>=4.1.0",
+    "coverage>=7.3.1",
 ]
 [tool.hatch.metadata]
 allow-direct-references = true
@@ -72,7 +85,11 @@ lint = {chain = ["lint:isort", "lint:black", "lint:ruff", "lint:pylint", "lint:m
 "lint:ruff" = "ruff src"
 "lint:pylint" = "pylint src"
 "lint:mypy" = "mypy src"
-test = "pytest"
+test = "pytest --junit-xml=report.xml --cov=people --cov-report xml:cov.xml"
+cov = {chain = ["coverage:run", "coverage:report", "coverage:xml"]}
+"coverage:run" = "coverage run"
+"coverage:report" = "coverage report"
+"coverage:xml" = "coverage xml"
 fix = {chain = ["fix:isort", "fix:black", "fix:ruff"]}
 "fix:isort" = "isort src"
 "fix:black" = "black src"
