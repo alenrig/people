@@ -12,4 +12,4 @@ COPY pyproject.toml .
 COPY requirements-dev.lock .
 COPY requirements.lock .
 
-RUN rye sync -v
+RUN rye sync --no-lock
