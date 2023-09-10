@@ -10,5 +10,6 @@ RUN wget https://github.com/mitsuhiko/rye/releases/latest/download/rye-x86_64-li
 
 COPY pyproject.toml .
 COPY requirements-dev.lock .
+COPY requirements.lock .
 
 RUN rye sync -v
