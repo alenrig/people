@@ -4,14 +4,6 @@ stages:
 - test
 - publish
 
-variables:
-  TRIVY_SEVERITY:
-    value: "test"
-    options:
-      - ""
-      - "test"
-    description: "check"
-
 build:docker:
   stage: build
   image:
@@ -31,9 +23,6 @@ build:docker:
 .test:
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH
   stage: test
-  before_script:
-    - env
-    - rye sync
   cache:
     key: "$CI_COMMIT_REF_SLUG"
     paths:
