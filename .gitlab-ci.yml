@@ -4,13 +4,8 @@ stages:
 - test
 - publish
 
-variables:
-  TRIVY_SEVERITY:
-    value: "test"
-    options:
-      - ""
-      - "test"
-    description: "check"
+include:
+- template: Security/Dependency-Scanning.gitlab-ci.yml
 
 build:docker:
   stage: build
