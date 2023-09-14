@@ -41,7 +41,7 @@ def add_command(surname, name, last_contact) -> None:
 
 
 @click.command(name="remove")
-@click.argument("id", type=int)
+@click.argument("index", type=int)
 def remove_command(index) -> None:
     """Remove person from contacts"""
     person = remove_person(index)
