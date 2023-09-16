@@ -45,5 +45,4 @@ def _create_default_configs() -> None:
         config.write(file)
 
 
-# noinspection PyRedeclaration
 config = get_configs()
