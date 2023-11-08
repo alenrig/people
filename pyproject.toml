@@ -85,7 +85,7 @@ lint = {chain = ["lint:isort", "lint:black", "lint:ruff", "lint:pylint", "lint:m
 "lint:ruff" = "ruff src"
 "lint:pylint" = "pylint src"
 "lint:mypy" = "mypy src"
-test = "pytest --junit-xml=report.xml"
+test = "pytest"
 cov = {chain = ["coverage:run", "coverage:report", "coverage:xml"]}
 "coverage:run" = "coverage run"
 "coverage:report" = "coverage report"
