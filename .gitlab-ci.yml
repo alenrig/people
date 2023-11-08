@@ -3,7 +3,14 @@ stages:
 - checks
 - publish
 
+.dev:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_BRANCH
+
 build:docker:
+  extends: .dev
   stage: build
   image:
     name: gcr.io/kaniko-project/executor:v1.10.0-debug
@@ -14,24 +21,17 @@ build:docker:
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
       --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_BRANCH}"
       --cache=true --cache-copy-layers=true --cache-ttl=24h --cache-run-layers=true
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_COMMIT_BRANCH
 
 .test:
-  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH
+  extends: .dev
   stage: checks
+  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH
   before_script:
     - rye sync
   cache:
     key: "$CI_COMMIT_REF_SLUG"
     paths:
       - ".cache"
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_COMMIT_BRANCH
 
 lint:
   extends:
