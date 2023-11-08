@@ -72,6 +72,7 @@ dev-dependencies = [
     "isort>=5.12.0",
     "pylint>=2.17.4",
     "coverage>=7.3.1",
+    "pytest-cov>=4.1.0",
 ]
 [tool.hatch.metadata]
 allow-direct-references = true
