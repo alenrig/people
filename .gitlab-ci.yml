@@ -1,7 +1,6 @@
 stages:
 - build
-- lint
-- test
+- checks
 - publish
 
 build:docker:
@@ -22,7 +21,7 @@ build:docker:
 
 .test:
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH
-  stage: test
+  stage: checks
   before_script:
     - rye sync
   cache:
@@ -37,11 +36,10 @@ build:docker:
 lint:
   extends:
     - .test
-  stage: lint
   script:
     - rye run lint
 
-unit test:
+units:
   extends:
     - .test
   script:
