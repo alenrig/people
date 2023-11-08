@@ -3,7 +3,14 @@ stages:
 - checks
 - publish
 
+.dev:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_BRANCH
+
 build:docker:
+  extends: .dev
   stage: build
   image:
     name: gcr.io/kaniko-project/executor:v1.10.0-debug
@@ -14,24 +21,17 @@ build:docker:
       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
       --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_BRANCH}"
       --cache=true --cache-copy-layers=true --cache-ttl=24h --cache-run-layers=true
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_COMMIT_BRANCH
 
 .test:
-  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH
+  extends: .dev
   stage: checks
+  image: $CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH
   before_script:
     - rye sync
   cache:
     key: "$CI_COMMIT_REF_SLUG"
     paths:
       - ".cache"
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_COMMIT_BRANCH
 
 lint:
   extends:
@@ -55,7 +55,25 @@ units:
         coverage_format: cobertura
         path: coverage.xml
 
+.main:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+build:version:
+  extends: .main
+  stage: build
+  image: $CI_REGISTRY_IMAGE:$CI_DEFAULT_BRANCH
+  script:
+    - VERSION=$(rye version)
+    - echo "VERSION=$VERSION" >> env
+  artifacts:
+    reports:
+      dotenv: env
+
 build:package:
+  extends: .main
   stage: build
   image: $CI_REGISTRY_IMAGE:$CI_DEFAULT_BRANCH
   script:
@@ -66,42 +84,34 @@ build:package:
     expire_in: "7 days"
     paths:
       - "dist"
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_COMMIT_TAG
 
 publish:package:
+  extends: .main
   stage: publish
   image: $CI_REGISTRY_IMAGE:main
   needs:
     - build:package
   script:
     - rye publish --repository gitlab --repository-url ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi --username gitlab-ci-token --token ${CI_JOB_TOKEN} -y
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_COMMIT_TAG
 
 publish:release:
+  extends: .main
   stage: publish
   image: registry.gitlab.com/gitlab-org/release-cli:latest
   needs:
     - build:package
+    - build:version
     - publish:package
   dependencies:
-    - "build:package"
+    - build:package
+    - build:version
   script:
   - echo "release job"
   release:
-    tag_name: $CI_COMMIT_TAG
-    description: "Release: $CI_COMMIT_TAG"
+    tag_name: $VERSION
+    description: "Release: $VERSION"
     assets:
       links:
-        - name: "people-$CI_COMMIT_TAG"
+        - name: "people-$VERSION"
           url: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi/simple/${CI_PROJECT_NAME}/"
           link_type: package
-  rules:
-    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
-      when: never
-    - if: $CI_COMMIT_TAG
