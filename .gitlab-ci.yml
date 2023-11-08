@@ -1,7 +1,6 @@
 stages:
 - build
-- lint
-- test
+- checks
 - publish
 
 build:docker:
@@ -22,7 +21,7 @@ build:docker:
 
 .test:
   image: $CI_REGISTRY_IMAGE:$CI_COMMIT_BRANCH
-  stage: test
+  stage: checks
   before_script:
     - rye sync
   cache:
@@ -37,27 +36,21 @@ build:docker:
 lint:
   extends:
     - .test
-  stage: lint
   script:
     - rye run lint
 
-unit test:
+units:
   extends:
     - .test
   script:
-    - rye run test
+    - rye run test --cov=. --cov-report xml --cov-report term --junit-xml=report.xml
+  coverage: '/^TOTAL.+?(\d+\%)$/'
   artifacts:
+    paths:
+      - report.xml
+      - coverage.xml
     reports:
-      junit: ["report.xml"]
-
-coverage:
-  extends:
-    - .test
-  script:
-    - rye run cov
-  coverage: '/TOTAL.*\s+(\d+%)$/'
-  artifacts:
-    reports:
+      junit: report.xml
       coverage_report:
         coverage_format: cobertura
         path: coverage.xml
